@@ -1,80 +1,80 @@
-import React from 'react';
+import { FaFacebook, FaInstagram } from "react-icons/fa";
+import React from "react";
+
+const contactInfo = [
+  { icon: "fa-map-marker-alt", text: "Buddha Chowk, Kaski" },
+  { icon: "fa-phone", text: "+977-61-588833, 587833" },
+  { icon: "fa-envelope", text: "info@royalcooperative.com" },
+];
+
+const Home = [
+  { href: "/", text: "Home" },
+  { href: "/aboutus", text: "Our Profile" },
+  { href: "https://royalcooperative.com/team/1", text: "Board of Directors" },
+  {
+    href: "https://royalcooperative.com/team/2",
+    text: "Account Supervision Committee",
+  },
+  { href: "https://royalcooperative.com/team/3", text: "Advisory Council" },
+  { href: "https://royalcooperative.com/team/4", text: "Top Management" },
+  { href: "https://royalcooperative.com/team/5", text: "Staff Members" },
+];
+
+const Savings = [
+  { href: "/services/savings", text: "Savings" },
+  { href: "/services/loans", text: "Loans" },
+  { href: "/services/remittance", text: "Remittance" },
+  { href: "/services/royal-smart-banking", text: "Smart Banking" },
+  { href: "/services/sct-debit-card", text: "ATM Services" },
+];
+
+const Reports = [
+  { href: "/reports", text: "Report" },
+  { href: "/news", text: "News" },
+  { href: "/downloads", text: "Download" },
+  { href: "/contact-us", text: "Contact Us" },
+];
 
 const Footer = () => {
   return (
-    <div className=" text-black ">
+    <div className="text-white py-4 bg-[linear-gradient(90deg,_rgba(10,5,103,1)_0%,_rgba(35,35,173,1)_50%,_rgba(10,5,103,1)_100%)]">
       <div className="container mx-auto px-4">
-        <div className="footer-info-wrapper">
-          <div className="row flex flex-wrap -mx-4">
-            <div className="footer-grid-childs w-full md:w-1/4 px-4 mb-6 md:mb-0">
-              {/* contact info::begin */}
-              <h1 className="text-xl font-bold mb-4">Head Office</h1>
-              <div className="contact-info">
-                <ul>
-                  <li className="mb-2"><i className="fa fa-map-marker-alt mr-2"></i>Buddha Chowk, Kaski</li>
-                  <li className="mb-2"><i className="fa fa-phone mr-2"></i>+977-61-588833, 587833</li>
-                  <li><i className="fa fa-envelope mr-2"></i>info@royalcooperative.com</li>
-                </ul>
-              </div>
-              <div className="footer-social-links flex space-x-4 mt-4">
-                <a href="https://www.facebook.com/pokhararoyalsaccos">
-                  <div className="footer-social-icon text-blue-600">
-                    <i className="fab fa-facebook-f"></i>
-                  </div>
-                </a>
-                <a href="https://www.instagram.com/pokhararoyalsaccos">
-                  <div className="footer-social-icon text-pink-500">
-                    <i className="fab fa-instagram"></i>
-                  </div>
-                </a>
-                <a href="https://www.youtube.com/pokhararoyalsaccos">
-                  <div className="footer-social-icon text-red-600">
-                    <i className="fab fa-youtube"></i>
-                  </div>
-                </a>
-              </div>
-            </div>
-            {/* contact info::ends */}
-            <div className="footer-grid-childs w-full md:w-1/4 px-4 mb-6 md:mb-0">
-              <div className="quicl-links-wrapper">
-                <ul className="space-y-2">
-                  <li><a href="/" className="text-blue-500 hover:underline">Home</a></li>
-                  <li><a href="/aboutus" className="text-blue-500 hover:underline">Our Profile</a></li>
-                  <li><a href="https://royalcooperative.com/team/1" className="text-blue-500 hover:underline">Board of Directors</a></li>
-                  <li><a href="https://royalcooperative.com/team/2" className="text-blue-500 hover:underline">Account Supervision Committee</a></li>
-                  <li><a href="https://royalcooperative.com/team/3" className="text-blue-500 hover:underline">Advisory Council</a></li>
-                  <li><a href="https://royalcooperative.com/team/4" className="text-blue-500 hover:underline">Top Management</a></li>
-                  <li><a href="https://royalcooperative.com/team/5" className="text-blue-500 hover:underline">Staff Members</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="footer-grid-childs w-full md:w-1/4 px-4 mb-6 md:mb-0">
-              <div className="quicl-links-wrapper">
-                <ul className="space-y-2">
-                  <li><a href="/services/savings" className="text-blue-500 hover:underline">Savings</a></li>
-                  <li><a href="/services/loans" className="text-blue-500 hover:underline">Loans</a></li>
-                  <li><a href="/services/remittance" className="text-blue-500 hover:underline">Remittance</a></li>
-                  <li><a href="/services/royal-smart-banking" className="text-blue-500 hover:underline">Smart Banking</a></li>
-                  <li><a href="/services/sct-debit-card" className="text-blue-500 hover:underline">ATM Services</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="footer-grid-childs w-full md:w-1/4 px-4 mb-6 md:mb-0">
-              <div className="quicl-links-wrapper">
-                <ul className="space-y-2">
-                  <li><a href="/reports" className="text-blue-500 hover:underline">Report</a></li>
-                  <li><a href="/news" className="text-blue-500 hover:underline">News</a></li>
-                  <li><a href="/downloads" className="text-blue-500 hover:underline">Download</a></li>
-                  <li><a href="/contact-us" className="text-blue-500 hover:underline">Contact Us</a></li>
-                </ul>
-              </div>
-            </div>
-            <div className="footer-grid-child w-full px-4">
-              <div className="footer-facebook-feed">
-                {/* Additional content can be added here */}
-              </div>
+        <div className="flex flex-wrap -mx-4">
+          <div className="w-full md:w-1/4 px-4 mb-6 md:mb-0">
+            <h1 className="text-xl font-bold mb-4">Head Office</h1>
+            <ul className="space-y-2">
+              {contactInfo.map((info, index) => (
+                <li key={index} className="mb-2">
+                  <i className={`fa ${info.icon} mr-2`}></i>
+                  {info.text}
+                </li>
+              ))}
+            </ul>
+            <div className="flex space-x-2 mt-1 ml-2 ">
+              <a href="https://www.facebook.com/thoplo" className="shadow-md">
+                <FaFacebook size={25} />
+              </a>
+              <a
+                href="https://www.instagram.com/thoplo"
+                className="shadow-md text-red-500"
+              >
+                <FaInstagram size={25} />
+              </a>
             </div>
           </div>
+          {[Home, Savings, Reports].map((links, index) => (
+            <div key={index} className="w-full md:w-1/4 px-4 mb-6 md:mb-0">
+              <ul className="space-y-2">
+                {links.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <a href={link.href} className="hover:underline">
+                      {link.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>

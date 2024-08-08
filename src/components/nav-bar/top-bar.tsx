@@ -8,7 +8,7 @@ import React from "react";
 
 const Topbar = () => {
   return (
-    <section className=" px-4 mt-2 py-3 bg-blue-700/85  flex justify-between items-center">
+    <section className=" px-4   py-2 bg-blue-700/85  flex justify-between items-center">
       <div className=" gap-4 flex ">
         <button className="flex gap-1 items-center">
           {" "}

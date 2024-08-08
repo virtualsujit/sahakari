@@ -2,7 +2,7 @@ import React from "react";
 
 const BottomBar = () => {
   return (
-    <section className="bg-green-700 py-3 px-4 flex justify-between items-center">
+    <section className="bg-green-700 py-3 px-4 flex justify-between items-center sticky top-0 ">
       <p>Home</p>
       <p>About Us</p>
       <p>Services</p>
