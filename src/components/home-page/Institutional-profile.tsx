@@ -36,7 +36,7 @@ const InstitutionalProfile = () => {
   ];
 
   return (
-    <div className="text-black p-4">
+    <div className="text-black p-4  max-w-[1400px] mx-auto">
       <div className="flex items-center justify-center gap-2">
         <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
         <h2 className="text-2xl">Institutional Profile</h2>

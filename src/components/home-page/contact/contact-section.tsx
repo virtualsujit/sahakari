@@ -3,7 +3,8 @@ import EmiCalculator from "./emi-calculator";
 
 const ContactSection = () => {
   return (
-    <div className="bg-gray-100 flex flex-col md:flex-row items-start py-8 text-black w-full ">
+   <div className="bg-gray-100 ">
+     <div className=" max-w-[1400px] mx-auto flex flex-col md:flex-row items-start py-8 text-black w-full ">
       <div className="w-full md:w-6/12  ">
         <ContactUs />
       </div>
@@ -14,6 +15,7 @@ const ContactSection = () => {
         <EmiCalculator />
       </div>
     </div>
+   </div>
   );
 };
 

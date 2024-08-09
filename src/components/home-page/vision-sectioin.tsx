@@ -3,15 +3,18 @@ import React from "react";
 const VisionSection = () => {
   return (
     <div
-      className="h-32 flex flex-col  items-center justify-center text-white text-2xl font-semibold"
+      className="bg-[#32488A] w-full text-white"
       style={{
-        // backgroundImage: 'url("/images/Home/box.webp")',
-        backgroundColor: "#32488A",
-        backgroundBlendMode: "overlay",
+        backgroundImage: 'url("/images/Home/box.png")',
+        backgroundColor: "#32488A !important",
+        backgroundRepeat: "repeat !important",
+        backgroundSize: "auto !important",
       }}
     >
-      <p>परिकल्पना</p>
-      <p>&quot;सुखी सदस्य, दिगाे सहकारी&quot;</p>
+      <div className="h-32 flex flex-col items-center max-w-[1400px] mx-auto justify-center text-white text-2xl font-semibold">
+        <p>परिकल्पना</p>
+        <p>&quot;सुखी सदस्य, दिगाे सहकारी&quot;</p>
+      </div>
     </div>
   );
 };

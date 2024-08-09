@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { FaCalendar, FaMailBulk, FaPhone } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import Image from "next/image";
 
 const Navbar = () => {
   const info = [
@@ -17,24 +18,27 @@ const Navbar = () => {
     <div>
       <NoticeBar />
       <Topbar />
-      <div className="text-black py-2 px-4 flex justify-between items-center">
-        <div className="w-1/2">
-          <Link href="/" className="uppercase font-bold text-3xl">
-            Thoplo Co-operatives Ltd.
+      <div className="text-black  max-w-[1400px] mx-auto py-2 flex justify-between items-center">
+        <div className="w-1/2 px-">
+          <Link href="/" className="uppercase font-bold text-3xl w-3/4">
+            <Image
+              src="/images/logo.png"
+              alt="logo"
+              width={700}
+              height={100}
+              className=" h-20  w-3/4 object-contain"
+            />
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-1 w-1/2">
+        <div className="grid grid-cols-2 gap-3 place-content-end place-items-start w-1/2 px-4 ">
           {info.map((item, index) => (
             <div key={index} className="flex items-center ">
-              {item.icon}
-              <span className="ml-2">{item.text}</span>
+              <p className="text-green-500"> {item.icon}</p>
+              <span className="ml-2 text-lg">{item.text}</span>
             </div>
           ))}
         </div>
       </div>
-     <div className="sticky top-0 ">
-     <BottomBar />
-     </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import React from "react";
 
 const TeamCard = () => {
   return (
-    <div className="max-w-md p-1 rounded-md bg-[#32488A]">
+    <div className="max-w-md p-1 rounded-xl bg-[#32488A]">
       <h2 className="text-center text-lg  py-0.5  text-white">Message From Chairperson</h2>
       <div className="bg-white rounded-md p-1 flex gap-4 m-2 text-black">
         <div>

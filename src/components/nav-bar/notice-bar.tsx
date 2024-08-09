@@ -29,7 +29,7 @@ const NoticeBar = () => {
 
   return (
     <div className="py-1 px-4 bg-red-600 text-white">
-      <div>
+      <div className=" max-w-[1400px] mx-auto">
         <p className={`text-center font-bold text-sm ${fadeClass}`}>
           <span className="animate-pulse">🔥</span> {data[currentIndex]}
         </p>
