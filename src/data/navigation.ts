@@ -5,11 +5,6 @@ export const bottomNavigation = [
     link: "/",
   },
   {
-    id: 4,
-    title: "Our Achievements",
-    link: "/our-achievements",
-  },
-  {
     id: 2,
     title: "About Us",
     link: "/about",
@@ -84,6 +79,11 @@ export const bottomNavigation = [
         link: "/services/sct-debit-card",
       },
     ],
+  },
+  {
+    id: 4,
+    title: "Our Achievements",
+    link: "/our-achievements",
   },
 
   {

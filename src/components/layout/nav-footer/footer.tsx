@@ -37,7 +37,11 @@ const Reports = [
 
 const Footer = () => {
   return (
-    <div className="text-white py-4 bg-[linear-gradient(90deg,_rgba(10,5,103,1)_0%,_rgba(35,35,173,1)_50%,_rgba(10,5,103,1)_100%)]">
+    <div className="text-white py-4"
+    style={{
+      background: "radial-gradient(#32488A, #1d2e61)",
+    }}
+    >
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full md:w-1/4 px-4 mb-6 md:mb-0">

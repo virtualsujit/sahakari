@@ -1,20 +1,18 @@
-import React from "react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { bottomNavigation } from "@/data/navigation";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger
+} from "@/components/ui/navigation-menu";
+import { bottomNavigation } from "@/data/navigation";
+import Link from "next/link";
 
 const BottomBar = () => {
   return (
@@ -30,7 +28,7 @@ const BottomBar = () => {
                   <NavigationMenuItem key={index} className="relative">
                     <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
                     <NavigationMenuContent
-                      className="p-4 w-96 absolute top-full rounded-md"
+                      className="p-4 w-96 absolute top-full rounded-md flex flex-col gap-3" 
                       style={{
                         background: "radial-gradient(#32488A, #1d2e61)",
                       }}
@@ -49,12 +47,16 @@ const BottomBar = () => {
                                 <AccordionTrigger>
                                   {child.title}
                                 </AccordionTrigger>
-                                <AccordionContent>
+                                <AccordionContent className="flex flex-col gap-8 ">
                                   {child.children?.map(
                                     (grandChild, grandChildIndex) => (
-                                      <p key={grandChildIndex}>
+                                      <Link
+                                        href={grandChild.link}
+                                        key={grandChildIndex}
+                                        className="hover:underline"
+                                      >
                                         {grandChild.title}
-                                      </p>
+                                      </Link>
                                     )
                                   )}
                                 </AccordionContent>
@@ -64,13 +66,16 @@ const BottomBar = () => {
                         }
 
                         return (
-                          <NavigationMenuItem key={childIndex} className="w-96">
-                            <NavigationMenuLink
+                          <NavigationMenuItem
+                            key={childIndex}
+                            className="w-96 flex flex-col "
+                          >
+                            <Link
                               href={child.link}
-                              className="text-center"
+                              className="  hover:underline"
                             >
                               {child.title}
-                            </NavigationMenuLink>
+                            </Link>
                           </NavigationMenuItem>
                         );
                       })}
@@ -81,9 +86,9 @@ const BottomBar = () => {
 
               return (
                 <NavigationMenuItem key={item.id} className="">
-                  <NavigationMenuLink href={item.link}>
+                  <Link href={item.link} className="  hover:underline">
                     {item.title}
-                  </NavigationMenuLink>
+                  </Link>
                 </NavigationMenuItem>
               );
             })}

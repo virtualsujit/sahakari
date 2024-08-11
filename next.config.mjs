@@ -12,6 +12,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/about",
+        destination: "/about/goals-and-objectives",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
