@@ -1,12 +1,11 @@
-import NewsCard from "@/components/card/news-card";
-import React from "react";
+import NewsHomeCard from "@/components/card/news-home-card";
 
 const NewsSection = () => {
   return (
     <div className="flex flex-col ">
       {[1, 2, 3].map((item) => (
         <div key={item}>
-          <NewsCard />
+          <NewsHomeCard />
         </div>
       ))}
     </div>

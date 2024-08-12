@@ -47,13 +47,13 @@ const BottomBar = () => {
                                 <AccordionTrigger>
                                   {child.title}
                                 </AccordionTrigger>
-                                <AccordionContent className="flex flex-col gap-8 ">
+                                <AccordionContent className="flex flex-col gap-3 ">
                                   {child.children?.map(
                                     (grandChild, grandChildIndex) => (
                                       <Link
                                         href={grandChild.link}
                                         key={grandChildIndex}
-                                        className="hover:underline"
+                                        className="hover:bg-green-600 p-2"
                                       >
                                         {grandChild.title}
                                       </Link>
@@ -72,7 +72,7 @@ const BottomBar = () => {
                           >
                             <Link
                               href={child.link}
-                              className="  hover:underline"
+                              className="hover:bg-green-600 p-2"
                             >
                               {child.title}
                             </Link>

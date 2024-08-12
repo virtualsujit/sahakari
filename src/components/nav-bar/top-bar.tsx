@@ -5,26 +5,27 @@ import {
   Newspaper,
 } from "lucide-react";
 import React from "react";
+import Link from "next/link";
 
 const Topbar = () => {
   return (
     <section className="  bg-blue-700/85  ">
       <div className=" max-w-[1400px] mx-auto flex justify-between items-center px-4   py-2">
         <div className=" gap-4 flex ">
-          <button className="flex gap-1 items-center">
+          <Link href="/contact-us" className="flex gap-1 items-center">
             {" "}
             <Handshake size={18} />
             Help Desk
-          </button>
-          <button className="flex gap-1 items-center">
+          </Link>
+          <Link href="/news-and-notices/news" className="flex gap-1 items-center">
             {" "}
             <Newspaper size={18} /> News
-          </button>
+          </Link>
 
-          <button className="flex gap-1 items-center ">
+          <Link href="/forex" className="flex gap-1 items-center ">
             {" "}
             <ArrowRightLeft size={18} /> Forex
-          </button>
+          </Link>
         </div>
 
         <div>

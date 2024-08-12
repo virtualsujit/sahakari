@@ -7,31 +7,30 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import {
+  FaBriefcase,
+  FaBuilding,
+  FaLeaf,
+  FaUserGraduate,
+} from "react-icons/fa";
 
 const LoanSection = () => {
   const data = [
     {
-      icon: "🔥",
+      icon: <FaLeaf />,
       title: "Agriculture Loan",
     },
+
     {
-      icon: "🔥",
+      icon: <FaUserGraduate />,
       title: "Education Loan",
     },
     {
-      icon: "🔥",
-      title: "Education Loan",
+      icon: <FaBriefcase />,
+      title: "Career Loan",
     },
     {
-      icon: "🔥",
-      title: "Education Loan",
-    },
-    {
-      icon: "🔥",
-      title: "Home Loan",
-    },
-    {
-      icon: "🔥",
+      icon: <FaBuilding />,
       title: "Business Loan",
     },
   ];
@@ -60,7 +59,8 @@ const LoanSection = () => {
               {data.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className="flex items-center justify-center  h-44 w-32   bg-white hover:bg-[#32488A] hover:text-white p-4 rounded-lg   md:basis-1/2 lg:basis-1/4 mx-4  "
+                  className="flex items-center justify-center  h-44 w-32   bg-white  hover:text-white p-4 rounded-lg   md:basis-1/2 lg:basis-1/4 mx-4 hover:bg-[radial-gradient(#32488A,#1d2e61)]  "
+                
                 >
                   <div className=" flex flex-col gap-4  items-center justify-between ">
                     <div className="text-4xl">{item.icon}</div>

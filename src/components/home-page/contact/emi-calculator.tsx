@@ -1,8 +1,10 @@
 import React from "react";
+import { FaCalculator } from "react-icons/fa";
+import { FaC } from "react-icons/fa6";
 
 const EmiCalculator = () => {
   return (
-    <div className="w-full">
+    <div className="w-full space-y-4">
       <div className="flex items-center justify-center gap-2 w-full mb-4">
         <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
         <h2 className="text-2xl">EMI Calculator</h2>
@@ -35,6 +37,22 @@ const EmiCalculator = () => {
             placeholder="Enter Duration"
             className="  h-10 rounded-full border-2 px-4 border-green-600 focus:outline-none focus:shadow-md shadow-green-600"
           />
+        </div>
+      </div>
+
+      <div className="border-2 space-y-4  border-dashed p-4 rounded-md  border-green-500">
+        <div className="relative inline-flex items-center border-2 border-green-500 rounded-full cursor-pointer">
+          <p className="bg-green-500 text-white px-2 pr-6 py-1 rounded-xl">
+            Calculate
+          </p>
+          <span className="absolute right-0 transform translate-x-1/2 bg-green-600 p-3 rounded-full">
+            <FaCalculator className="text-white" />
+          </span>
+        </div>
+
+        <div className="flex justify-between items-center">
+          <p>Monthly Payment(EMI)</p>
+          <p className="text-red-500">Rs 0.00</p>
         </div>
       </div>
     </div>

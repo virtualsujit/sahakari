@@ -96,11 +96,11 @@ export const bottomNavigation = [
         title: "Outstanding Members",
         link: "/gallery/outstanding-members",
       },
-      {
-        id: 2,
-        title: "Outstanding Employees",
-        link: "/gallery/outstanding-employees",
-      },
+      // {
+      //   id: 2,
+      //   title: "Outstanding Employees",
+      //   link: "/gallery/outstanding-employees",
+      // },
       {
         id: 3,
         title: "Events",
