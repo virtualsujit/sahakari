@@ -4,6 +4,7 @@ import { BiSolidBuildingHouse } from "react-icons/bi";
 import { FaHandshakeAngle, FaPiggyBank, FaUserGroup } from "react-icons/fa6";
 import { GiGreekTemple } from "react-icons/gi";
 import { IoPieChartSharp } from "react-icons/io5";
+import SectioinTitle from "./section-title";
 
 const InstitutionalProfile = () => {
   const data = [
@@ -41,11 +42,8 @@ const InstitutionalProfile = () => {
 
   return (
     <div className="text-black p-4  max-w-[1400px] mx-auto">
-      <div className="flex items-center justify-center gap-2">
-        <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
-        <h2 className="text-2xl">Institutional Profile</h2>
-        <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
-      </div>
+      <SectioinTitle title="Institutional Profile" />
+
       <p className="font-semibold">Data of fiscal year 2079/80</p>
 
       <div className="flex gap-6 items-center justify-center mt-4">

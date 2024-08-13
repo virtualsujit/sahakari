@@ -5,28 +5,29 @@ import { FaCalendar } from "react-icons/fa";
 const NewsHomeCard = () => {
   return (
     <div className="m-2">
-      <div className="bg-white rounded-md p-2 flex gap-2 shadow-lg text-black">
+      <div className="bg-white rounded-md p-2 flex items-start gap-4 shadow-lg text-black">
         {/* Image Section */}
-        <div className="w-1/4">
+        <div className="flex-shrink-0 w-1/3">
           <Image
-            src="https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src=" https://marketplace.canva.com/EAFfT3S71Oc/1/0/1600w/canva-red-blue-modern-breaking-news-youtube-thumbnail-qJRhA0AmHOw.jpg"
             alt="chairperson"
-            width={100}
-            height={100}
-            className="rounded-md object-fill h-36 w-full"
+            width={500}
+            height={500}
+            className="rounded-md object-cover h-32 w-full"
           />
         </div>
 
         {/* Content Section */}
-        <div className="w-3/4">
-          <p className="bg-green-700 text-white rounded-xl  px-4  p-1 inline-flex items-center gap-2 mb-2">
+        <div className="flex-1">
+          <p className="bg-green-700 text-white rounded-full text-xs px-3 py-1 inline-flex items-center gap-2 mb-2">
             <FaCalendar />
             <span>2021-09-12</span>
           </p>
-          <h2 className="font-semibold text-lg mb-2">
+          <h2 className="font-semibold text-sm my-1">
             माेहरिया सेवाकेन्द्रमा सदस्य शिक्षा तालिम सम्पन्न
           </h2>
-          <p className="line-clamp-3   text-gray-700">
+
+          <p className="line-clamp-3 text-sm text-gray-700">
             पोखरा रोयल साकोसको वार्षिक कार्यक्रम अनुसार संस्थाले सदस्य शिक्षा
             कार्यक्रम सन्चालन गर्दै आएकोमा मोहरिया सेवाकेन्द्र अन्तर्गतका आफ्ना
             सदस्यहरुलाई मिति २०७८ पौष २३ गते सदस्य शिक्षा तालिम प्रदान गरेको छ ।

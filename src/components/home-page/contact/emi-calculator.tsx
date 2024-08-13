@@ -1,15 +1,12 @@
 import React from "react";
 import { FaCalculator } from "react-icons/fa";
 import { FaC } from "react-icons/fa6";
+import SectioinTitle from "../section-title";
 
 const EmiCalculator = () => {
   return (
     <div className="w-full space-y-4">
-      <div className="flex items-center justify-center gap-2 w-full mb-4">
-        <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
-        <h2 className="text-2xl">EMI Calculator</h2>
-        <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
-      </div>
+      <SectioinTitle title="EMI Calculator" />
 
       <div className="flex flex-col gap-4">
         <div className="flex gap-4">

@@ -100,7 +100,7 @@ const Page = () => {
       {/* Sidebar with Image */}
       <div className="w-2/6 mx-auto p-2 bg-gray-100 shadow-md sticky top-20 h-[calc(100vh-140px)]">
         <Image
-          src="https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src="https://c8.alamy.com/comp/2C47WGP/creative-abstract-modern-corporate-business-vertical-roll-up-banner-design-template-vector-illustration-concept-exhibition-advertising-presentation-2C47WGP.jpg"
           alt="Achievement"
           width={900}
           height={900}
@@ -217,7 +217,9 @@ const Page = () => {
             </tbody>
           </table>
 
-          <p className="my-1">Service charge is subject to vary time to time.</p>
+          <p className="my-1">
+            Service charge is subject to vary time to time.
+          </p>
           <p className="text-red-500 my-1">
             For more information contact our office near you.
           </p>

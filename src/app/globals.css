@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 /* Add this CSS to your global stylesheet or the component's CSS module */
+html {
+  scroll-behavior: smooth;
+}
 
 @keyframes fadeIn {
   from {

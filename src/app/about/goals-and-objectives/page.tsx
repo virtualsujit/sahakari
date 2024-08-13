@@ -2,7 +2,7 @@ import React from 'react';
 
 const VisionMissionGoals = () => {
   return (
-    <div className="max-w-4xl mx-auto p-6 text-black">
+    <div className="max-w-[1400px] mx-auto p-6 text-black">
       <h1 className="text-2xl font-bold mb-6 text-center">Vision, Mission, Goals & Objectives</h1>
 
       <div className="mb-8">

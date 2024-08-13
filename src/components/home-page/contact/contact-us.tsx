@@ -1,13 +1,11 @@
 import React from "react";
+import SectioinTitle from "../section-title";
 
 const ContactUs = () => {
   return (
     <div className="w-full space-y-4 px-4">
-      <div className="flex items-center justify-center gap-2 w-full">
-        <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
-        <h2 className="text-2xl">Request For Callback</h2>
-        <div className="border-2 bg-[#32488A] p-1 rounded-lg w-9" />
-      </div>
+      <SectioinTitle title="Request For Callback" />
+
       <p>
         Would you like to speak to one of our financial advisers over the phone?
         Just submit your details and we’ll be in touch shortly. You can also

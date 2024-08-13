@@ -10,6 +10,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "plus.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "c8.alamy.com",
+      },
+      {
+        protocol: "https",
+        hostname: "marketplace.canva.com",
+      },
     ],
   },
   async redirects() {

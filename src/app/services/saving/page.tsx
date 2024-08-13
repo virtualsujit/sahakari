@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const SavingProducts = () => {
@@ -5,56 +6,69 @@ const SavingProducts = () => {
     {
       type: "Royal Saving",
       nepali: "राेयल बचत",
+      id: " royal-saving",
     },
     {
       type: "Monthly Regular Saving",
       nepali: "मासिक नियमित बचत",
+      id: " monthly-regular-saving",
     },
     {
       type: "Dividend Saving",
       nepali: "लाभांश बचत",
+      id: " dividend",
     },
     {
       type: "Women Saving",
       nepali: "नारी बचत",
+      id: " women-saving",
     },
     {
       type: "Senior Citizen Saving",
       nepali: "ज्येष्ठ नागरिक बचत",
+      id: " senior-citizen-saving",
     },
     {
       type: "Chunumunu Saving",
       nepali: "छुनुमुनु बचत",
+      id: " chunumunu-saving",
     },
     {
       type: "Corporate Saving",
       nepali: "संस्थागत बचत",
+      id: " corporate-saving",
     },
     {
       type: "Travel Saving",
       nepali: "भ्रमण बचत",
+      id: " travel-saving",
     },
     {
       type: "Insurance Saving",
       nepali: "विमा बचत",
+      id: " insurance-saving",
     },
     {
       type: "Remittance Saving",
       nepali: "रेमिट्यान्स बचत",
+      id: " remittance-saving",
     },
     {
       type: "Recurring Saving",
       nepali: "आवधिक बचत",
+      id: " recurring-saving",
     },
     {
       type: "Fixed Saving",
       nepali: "मुद्धती बचत",
+      id: " fixed-saving",
     },
   ];
 
   const products = [
     {
       name: "Royal Saving (राेयल बचत)",
+      id: " royal-saving",
       details: [
         "शेयर खरीद पश्चात रु १०० ।– को न्यूनतम मौज्दातमा अनिवार्य रुपमा खाता खोलिने छ ।",
         "भुक्तानी पुर्जाको व्यवस्था हुने ।",
@@ -64,6 +78,7 @@ const SavingProducts = () => {
     },
     {
       name: "Monthly Regular Saving (मासिक नियमित बचत)",
+      id: " monthly-regular-saving",
       details: [
         "संस्थाको शेयर सदस्य बनी सकेपछि यो खाता अनिवार्य सञ्चालन गर्नु पर्नेछ तर संस्थागत शेयर खरिद गर्ने संस्थालाई अनिवार्य हुने छैन ।",
         "मासिक नियमित बचत खाता ३ वर्ष सम्म नियमित नगरेमा सञ्चालक समितिको निणर्यले सदस्यता खारेज हुनेछ ।",
@@ -83,6 +98,7 @@ const SavingProducts = () => {
     },
     {
       name: "Dividend Saving (लाभांश बचत)",
+      id: " dividend",
       details: [
         "शुन्य मौज्दातमा शेयर खरीद पश्चात खाता स्वतः खोलिने छ ।",
         "यस खातामा संस्था बाट प्राप्त शेयर लाभांश, संरक्षित पुँजी फिर्ता कोषको रकम र संस्थाबाट प्रदान गरिने अन्य रकम संस्थाले जम्मा गरीदिनेछ ।",
@@ -95,6 +111,7 @@ const SavingProducts = () => {
     },
     {
       name: "Women Saving (नारी बचत)",
+      id: " women-saving",
       details: [
         "रु.२,०००।– मा महिला सदस्यहरुले मात्र खाता खोल्न र संचालन गर्न सक्नेछन् ।",
         "पेवाबाट प्राप्त भएको रकम जम्मा गर्न सकिने ।",
@@ -105,6 +122,7 @@ const SavingProducts = () => {
     },
     {
       name: "Senior Citizen Saving (ज्येष्ठ नागरिक बचत)",
+      id: " senior-citizen-saving",
       details: [
         "६५ वर्ष उमेर पुगेका जेष्ठ सदस्यहरुले रु.१००।– मा खाता खोल्न सकिनेछ ।",
         "स्टेटमेन्ट तथा पासबुक निःशुल्क प्रदान गरीने ।",
@@ -115,6 +133,7 @@ const SavingProducts = () => {
     },
     {
       name: "Chhunumunu Saving (छुनुमुनु बचत)",
+      id: " chunumunu-saving",
       details: [
         "यो बचत खाता नाबालकहरुलाई लक्षित गरी बनाएको हो ।",
         "बालबालिकाको अभिभावक यस संस्थाको सदस्य भएको हुनु पर्नेछ । छुनुमुनु वचत खाता खोल्दा अभिभावकको शेयर प्रमाणपत्रको र बालबालिकाको जन्मदर्ता प्रमाणपत्रको प्रतिलिपी अनिवार्य हुनु पर्नेछ । (अविभावक भन्नाले बुबा, आमा, हजुर बुबा, हजुर आमा, दाजु र दिदी वा स्थानिय तहबाट संरक्षक हो भनि प्रमाणित गरेको व्यक्तिलाई सम्झनु पर्नेछ)",
@@ -126,6 +145,7 @@ const SavingProducts = () => {
     },
     {
       name: "Corporate Saving (संस्थागत बचत)",
+      id: " corporate-saving",
       details: [
         "यो खाता सामाजिक संघ संस्था वा संगठित समूहको सुविधाको लागि हो, जसमा संगठित समूह जस्तै ः स्थानीय बाटो निर्माण समिति, उपभोक्ता समूह, पत्रकार महासंघ, सामुदायिक विद्यालय वा कलेज, हेल्थपोष्ट, आमा समूह, युवा क्लब र सामाजिक संस्था जस्ता गैह« नाफामूलक संस्था आदिले सजिलै संग बचत खाता खोली कारोबार गर्न सक्नेछ ।",
         "रु.१,०००।–मा खाता खोल्न सकिने, दैनिक मौज्दातका आधारमा व्याज प्राप्त हुने ।",
@@ -135,6 +155,7 @@ const SavingProducts = () => {
     },
     {
       name: "Travel Saving (भ्रमण बचत)",
+      id: " travel-saving",
       details: [
         "यो खाता भ्रमणलाई लक्षित गरि संचालन गरिने ।",
         "भ्रमणमा जान इच्छुक सदस्यहरुले मासिक रुपमा जम्मा गर्नुपर्ने ।",
@@ -146,6 +167,7 @@ const SavingProducts = () => {
     },
     {
       name: "Insurance Saving (विमा बचत)",
+      id: " insurance-saving",
       details: [
         "जीवन वीमा र निर्जिवन वीमा कार्यक्रममा सहभागी हुन नियमित बचत गर्न सकिनेछ ।",
         "खातामा जम्मा भएको रकम त्रैमासिक, अर्धवार्षिक वा वार्षिक रुपमा वीमाको प्रिमियम तिर्नको लागि भुक्तानी गरिनेछ ।",
@@ -156,6 +178,7 @@ const SavingProducts = () => {
     },
     {
       name: "Remittance Saving (रेमिट्यान्स बचत)",
+      id: " remittance-saving",
       details: [
         "स्वदेश वा विदेशबाट प्राप्त रेमिटान्सलाई खाता खोलि राख्न सकिनेछ ।",
         "रेमिटान्सबाट जम्मा भएको रकम अन्य बचत खातामा राख्न वा रु.१००।– को न्युनतम मौज्दातमा रकमान्तर गर्न सकिनेछ ।",
@@ -169,24 +192,25 @@ const SavingProducts = () => {
     <div className="max-w-[1400px] flex justify-between gap-4 mx-auto text-black py-4">
       <div className="w-1/4 mx-auto p-6 bg-gray-100 shadow-md sticky top-20 h-[calc(100vh-140px)]">
         {saving.map((service, index) => (
-          <div
+          <Link
+            href={`#${service.id}`}
             key={index}
             className="flex justify-between items-center py-2 border-b border-gray-300"
           >
             <span className="text-gray-500 font-medium">
               {service.type} ({service.nepali})
             </span>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="w-3/4 px-4  text-black">
         {products.map((product, index) => (
-          <div key={index} className="mb-8">
+          <div key={product.id} className="mb-8" id={product.id}>
             <h2 className="text-xl font-bold mb-2">{product.name}</h2>
-            <ul className="list-disc pl-5">
+            <ul className="list-disc   pl-5">
               {product.details.map((detail, idx) => (
-                <li key={idx} className="mb-1">
-                  {detail}
+                <li key={idx} className="mb-1 text-green-500">
+                  <p className="text-black">{detail}</p>
                 </li>
               ))}
             </ul>

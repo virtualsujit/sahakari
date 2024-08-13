@@ -1,18 +1,13 @@
 import Image from "next/image";
 import React from "react";
+import SectioinTitle from "./section-title";
 
 const BankingSection = () => {
   return (
     <div className="max-w-[1400px] mx-auto py-8">
       <div className="text-black flex justify-between  ">
         <div className="space-y-4">
-          <div className="">
-            <div className="flex items-center justify-center gap-2">
-              <div className="border-2 bg-[#32488A] p-1 rounded-xl w-9" />
-              <h2 className="text-2xl">ATM</h2>
-              <div className="border-2 bg-[#32488A] p-1 rounded-xl w-9" />
-            </div>
-          </div>
+          <SectioinTitle title="ATM" />
 
           <p className="text-xl">
             We provide various services for online money transfers. Our service
@@ -41,11 +36,8 @@ const BankingSection = () => {
             />
           </div>
 
-          <div className="flex items-center justify-center gap-2">
-            <div className="border-2 bg-[#32488A] p-1 rounded-xl w-9" />
-            <h2 className="text-2xl">Mobile Banking Service</h2>
-            <div className="border-2 bg-[#32488A] p-1 rounded-xl w-9" />
-          </div>
+          <SectioinTitle title="Mobile Banking Service" />
+
           <p className="text-xl ">
             We provide various services for online money transfers. Our service
             is the best known, most secure and reliable online service. We
