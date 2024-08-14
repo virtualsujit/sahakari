@@ -9,8 +9,8 @@ const NewsHomeCard = () => {
         {/* Image Section */}
         <div className="flex-shrink-0 w-1/3">
           <Image
-            src=" https://marketplace.canva.com/EAFfT3S71Oc/1/0/1600w/canva-red-blue-modern-breaking-news-youtube-thumbnail-qJRhA0AmHOw.jpg"
-            alt="chairperson"
+            src="https://marketplace.canva.com/EAFfT3S71Oc/1/0/1600w/canva-red-blue-modern-breaking-news-youtube-thumbnail-qJRhA0AmHOw.jpg"
+            alt="News"
             width={500}
             height={500}
             className="rounded-md object-cover h-32 w-full"
