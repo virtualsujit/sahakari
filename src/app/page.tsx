@@ -1,6 +1,7 @@
 import BankingSection from "@/components/home-page/atm-mobile-banking-section";
 import ContactSection from "@/components/home-page/contact/contact-section";
-import HomeHeroSection from "@/components/home-page/hero-section";
+import HomeHeroSection from "@/components/home-page/hero-section/hero-section";
+
 import InstitutionalProfile from "@/components/home-page/Institutional-profile";
 import LoanSection from "@/components/home-page/loan-sectioin";
 import MessageFromTeam from "@/components/home-page/message-from-team";

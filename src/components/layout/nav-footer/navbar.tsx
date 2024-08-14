@@ -3,6 +3,7 @@ import NoticeBar from "@/components/nav-bar/notice-bar";
 import Topbar from "@/components/nav-bar/top-bar";
 import Link from "next/link";
 import React from "react";
+import NepaliDate from "nepali-date-converter";
 
 import { FaLocationDot } from "react-icons/fa6";
 import Image from "next/image";
@@ -15,12 +16,13 @@ import {
 } from "react-icons/fa";
 
 const Navbar = () => {
-  const info = [
-    { icon: <FaPhone />, text: "01-5555555" },
-    { icon: <FaLocationDot />, text: "Kathmandu, Nepal" },
-    { icon: <FaEnvelope />, text: " hello@nice.com" },
-    { icon: <FaCalendarAlt />, text: "Mon - Fri 9:00 - 5:00" },
-  ];
+  // Create a new NepaliDate object with the current date
+  const nepaliDate = new NepaliDate();
+
+  // Format the date in Nepali
+  const formattedNepaliDate = nepaliDate.format("YYYY, MMMM DD ddd", "np");
+
+ 
   return (
     <div>
       <NoticeBar />
@@ -68,7 +70,7 @@ const Navbar = () => {
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-700">
               <FaCalendarAlt className="text-green-700" />
-              <p>Mon - Fri 9:00 - 5:00</p>
+              <p>{formattedNepaliDate}</p>
             </div>
           </div>
         </div>

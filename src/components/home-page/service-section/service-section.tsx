@@ -7,6 +7,8 @@ import { GiReceiveMoney } from "react-icons/gi";
 import DownloadSection from "./download-section";
 import { motion } from "framer-motion";
 import SectioinTitle from "../section-title";
+import NoticeSection from "./notice-section";
+import { ChevronRight } from "lucide-react";
 
 const ServiceSection = () => {
   const services = [
@@ -66,9 +68,9 @@ const ServiceSection = () => {
                 <NewsSection />
               </TabsContent>
               <TabsContent value="notice" className="h-96">
-                Change your password here.
+                <NoticeSection />
               </TabsContent>
-              <TabsContent value="download">
+              <TabsContent value="download" className="py-4 ">
                 <DownloadSection />
               </TabsContent>
             </Tabs>
@@ -93,7 +95,8 @@ const ServiceSection = () => {
                   </h2>
                   <p className="text-gray-600">{item.description}</p>
                   <button className="mt-2 bg-green-700 text-white px-4 py-1 rounded-full flex items-center">
-                    Read More <span className="ml-2">➔</span>
+                    Read More
+                    <ChevronRight className="inline-flex " size={20} />
                   </button>
                 </div>
               </motion.div>

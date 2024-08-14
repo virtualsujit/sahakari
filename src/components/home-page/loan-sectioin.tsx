@@ -14,6 +14,7 @@ import {
   FaUserGraduate,
 } from "react-icons/fa";
 import SectioinTitle from "./section-title";
+import { ChevronRight } from "lucide-react";
 
 const LoanSection = () => {
   const data = [
@@ -71,9 +72,10 @@ const LoanSection = () => {
           </Carousel>
         </div>
         <div className="flex justify-center items-center">
-          <p className="bg-green-600 rounded-full text-white px-2   text-center">
-            view all
-          </p>
+          <button className="mt-2 bg-green-700 text-white px-4 py-1 rounded-full flex items-center">
+            View All
+            <ChevronRight className="inline-flex " size={20} />
+          </button>
         </div>
       </div>
     </div>

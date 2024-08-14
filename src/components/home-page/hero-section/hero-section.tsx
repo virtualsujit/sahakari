@@ -1,8 +1,15 @@
-import { TabletSmartphone } from "lucide-react";
+import {
+  ArrowBigRight,
+  ArrowRight,
+  ChevronRight,
+  TabletSmartphone,
+} from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { FaAtom, FaSms } from "react-icons/fa";
 import { MdOutlineQrCode2 } from "react-icons/md";
+import PhotoCarousel from "./photo-carousel";
+import { BiRightArrow } from "react-icons/bi";
 
 const HomeHeroSection = () => {
   const services = [
@@ -24,23 +31,38 @@ const HomeHeroSection = () => {
     },
   ];
 
+  const staticData: {
+    id: number;
+    url: string;
+    alt: string;
+  }[] = [
+    {
+      id: 1,
+      url: "https://images.unsplash.com/photo-1598721987126-0e7bee3ba71f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      alt: "Our Board",
+    },
+    {
+      id: 2,
+      url: "https://images.unsplash.com/photo-1598721987126-0e7bee3ba71f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      alt: "Our marker",
+    },
+    {
+      id: 3,
+      url: "https://images.unsplash.com/photo-1598721987126-0e7bee3ba71f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      alt: "Our Ink",
+    },
+  ];
   return (
     <div className="flex text-black gap-4  max-w-[1400px] mx-auto">
-      <div className="w-4/6">
-        <Image
-          src="https://images.unsplash.com/photo-1598721987126-0e7bee3ba71f?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="hero"
-          width={1920}
-          height={1080}
-          className="object-cover h-full"
-        />
+      <div className="w-4/6 p-0 m-0">
+        <PhotoCarousel data={staticData} />
       </div>
-      <div className="w-2/6 mx-auto p-4 space-y-3">
-        <div className="grid grid-cols-2 gap-4 mb-3">
+      <div className="w-2/6 mx-auto p-4 space-y-5">
+        <div className="grid grid-cols-2 gap-4 ">
           {services.map((service, index) => (
             <div
               key={index}
-              className="flex flex-col space-y-4 py-4 items-center justify-center p-2 text-white rounded-xl  "
+              className="flex flex-col space-y-2 py-3 w-44 items-center justify-center p-2 text-white rounded-xl  "
               style={{ background: "radial-gradient(#32488A, #1d2e61)" }}
             >
               <div className="text-4xl text-white">{service.icon}</div>
@@ -48,7 +70,7 @@ const HomeHeroSection = () => {
             </div>
           ))}
         </div>
-        <div className="text-center">
+        <div className="flex flex-col  items-center justify-centertext-center space-y-4 ">
           <Image
             src="/images/Home/account.svg"
             alt="Online Account Opening"
@@ -59,13 +81,14 @@ const HomeHeroSection = () => {
           <h2 className="text-2xl font-semibold mb-1">
             Online Account Opening
           </h2>
-          <p className="mb-1 text-sm">
+          <p className="mb-1 text-sm line-clamp-2">
             We provide various services for online money transfers. Our service
             is the best known, most reliable, and most secure service in the
             world.
           </p>
-          <button className="px-4 py-2 font-bold text-white bg-blue-600 rounded-md ">
+          <button className="px-3 text-white bg-green-600 rounded-full  flex items-center justify-center gap-0.5">
             Get Started
+            <ChevronRight className="inline-flex " size={20} />
           </button>
         </div>
       </div>

@@ -13,18 +13,19 @@ const DownloadCard = () => {
             alt="chairperson"
             width={100}
             height={100}
-            className="rounded-md object-fill h-36 w-full"
+            className="rounded-md object-fill h-32 w-full"
           />
         </div>
 
         {/* Content Section */}
         <div className="w-3/4">
-          <h2 className="font-semibold text-green-700  text-lg mb-2">
+          <h2 className="font-semibold text-green-700 text-lg mb-2">
             Vacancy Application Form
           </h2>
-          <p className="flex   gap-2 items-center  ">
-            <p>Download</p> <FaDownload className="inline text-green-700" />
-          </p>
+          <div className="flex gap-2 items-center">
+            <span>Download</span> 
+            <FaDownload className="inline text-green-700" />
+          </div>
         </div>
       </div>
     </div>

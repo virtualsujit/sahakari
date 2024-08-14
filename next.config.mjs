@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "marketplace.canva.com",
       },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+      },
     ],
   },
   async redirects() {

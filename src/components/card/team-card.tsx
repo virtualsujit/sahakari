@@ -1,10 +1,13 @@
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 const TeamCard = () => {
   return (
     <div className="max-w-md p-1 rounded-xl bg-[#32488A]">
-      <h2 className="text-center text-lg  py-0.5  text-white">Message From Chairperson</h2>
+      <h2 className="text-center text-lg  py-0.5  text-white">
+        Message From Chairperson
+      </h2>
       <div className="bg-white rounded-md p-1 flex gap-4 m-2 text-black">
         <div>
           <Image
@@ -20,13 +23,13 @@ const TeamCard = () => {
           <div>
             <p>रुद्र कुमारी गुरुङ्ग (मैना)</p>
             <p>Chairperson</p>
-          </div>
-          <div>
-            <p>Contact No.: 9856081502</p>
+            <p>Contact No: 9856081502</p>
             <p>Email: royalchairperson@gmail.com</p>
-            <p className="rounded-xl p-1 mt-2 text-center bg-green-600 text-white cursor-pointer">
-              Read more
-            </p>
+            <button className="px-3 text-white bg-green-600 rounded-full mt-1 flex items-center justify-center gap-0">
+
+              Read More
+              <ChevronRight className="inline-flex " size={20} />
+            </button>
           </div>
         </div>
       </div>
