@@ -25,8 +25,7 @@ const TeamCard = () => {
             <p>Chairperson</p>
             <p>Contact No: 9856081502</p>
             <p>Email: royalchairperson@gmail.com</p>
-            <button className="px-3 text-white bg-green-600 rounded-full mt-1 flex items-center justify-center gap-0">
-
+            <button className="mt-2 bg-green-700 text-white px-4 py-1 rounded-full flex items-center">
               Read More
               <ChevronRight className="inline-flex " size={20} />
             </button>

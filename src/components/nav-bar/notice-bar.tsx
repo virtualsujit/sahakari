@@ -1,5 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
+import React from "react";
+import Link from "next/link";
 
 const NoticeBar = () => {
   const data = [
@@ -9,30 +11,26 @@ const NoticeBar = () => {
     "get 3% more interest on child saving account",
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [fadeClass, setFadeClass] = useState("fade-in");
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFadeClass("fade-out");
-
-      setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % data.length);
-        setFadeClass("fade-in");
-      }, 500);
-    }, 3000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [data.length]);
-
   return (
-    <div className="py-1 px-4 bg-red-600 text-white">
-      <div className=" max-w-[1400px] mx-auto">
-        <p className={`text-center font-bold text-sm ${fadeClass}`}>
-          <span className="animate-pulse">🔥</span> {data[currentIndex]}
-        </p>
+    <div className="py-1.5   bg-red-600 text-white px-4">
+      <div className="max-w-[1400px] px-4 mx-auto overflow-hidden">
+        <div className="marquee-wrapper px-4">
+          <div className="marquee">
+            {data.map((item, index) => (
+              <Link
+                href={"/"}
+                key={index}
+                className="inline-block gap-4 whitespace-nowrap px-4"
+              >
+                <span className="animate-pulse">
+                  {" "}
+                  <ArrowRight className="inline-flex" />
+                </span>{" "}
+                {item}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -4,12 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaCalendar } from "react-icons/fa6";
-import { pdfjs } from "react-pdf";
 
 const NoticeSection: React.FC = () => {
   return (
-    <div className="flex justify-center mt-8">
-      <Link href={"/files/pdf/atomic-habits.pdf"} className="px-5">
+    <div className="flex justify-center max-h-[450px] m-1 ">
+      <Link href={"/files/pdf/atomic-habits.pdf"} className="">
         <div className="bg-white rounded-md p-2 flex items-start gap-4 shadow-lg text-black">
           {/* Image Section */}
           <div className="flex-shrink-0 w-1/3">

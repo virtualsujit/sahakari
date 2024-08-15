@@ -40,14 +40,13 @@ const BottomBar = () => {
                   <NavigationMenuItem key={index} className="relative">
                     <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
                     <NavigationMenuContent
-                      className="p-4 w-96 absolute top-full rounded-md flex flex-col gap-3"
+                      className="p-4 w-96 absolute top-full  mt-1 flex flex-col gap-3"
                       style={{
                         background: "radial-gradient(#32488A, #1d2e61)",
                       }}
                     >
                       {item.children?.map((child, childIndex) => {
                         const hasGrandChildren = !!child.children?.length;
-
                         if (hasGrandChildren) {
                           return (
                             <NavigationMenu
@@ -60,7 +59,7 @@ const BottomBar = () => {
                                     {child.title}
                                   </NavigationMenuTrigger>
                                   <NavigationMenuContent
-                                    className="p-4  absolute top-full rounded-md flex flex-col gap-3"
+                                    className="p-4 mt-4  left-0 absolute top-full flex flex-col gap-3"
                                     style={{
                                       background:
                                         "radial-gradient(#32488A, #1d2e61)",
@@ -70,7 +69,7 @@ const BottomBar = () => {
                                       (grandChild, grandChildIndex) => (
                                         <NavigationMenuItem
                                           key={grandChildIndex}
-                                          className="w-96 flex flex-col "
+                                          className="w-60  flex flex-col "
                                         >
                                           <Link
                                             href={grandChild.link}
@@ -91,7 +90,9 @@ const BottomBar = () => {
                         return (
                           <NavigationMenuItem
                             key={childIndex}
-                            className="w-96 flex flex-col "
+                            className={` ${
+                              isdownloads ? "w-72" : "w-48"
+                            }   flex flex-col`}
                           >
                             {isdownloads ? (
                               <a
@@ -119,7 +120,10 @@ const BottomBar = () => {
 
               return (
                 <NavigationMenuItem key={item.id} className="">
-                  <Link href={item.link} className="  hover:underline">
+                  <Link
+                    href={item.link}
+                    className="  hover:text-green-300  transition-all duration-100 "
+                  >
                     {item.title}
                   </Link>
                 </NavigationMenuItem>

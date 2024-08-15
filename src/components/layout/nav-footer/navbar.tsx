@@ -22,7 +22,6 @@ const Navbar = () => {
   // Format the date in Nepali
   const formattedNepaliDate = nepaliDate.format("YYYY, MMMM DD ddd", "np");
 
- 
   return (
     <div>
       <NoticeBar />
@@ -41,17 +40,15 @@ const Navbar = () => {
               />
             </Link>
             {/* Search Bar */}
-            <div className="hidden lg:flex items-center flex-grow w-1/4">
-              <div className="relative w-full">
-                <input
-                  type="search"
-                  placeholder="Search...."
-                  className="w-full py-2 px-4 border rounded-l-lg focus:outline-none"
-                />
-                <button className="absolute -right-3 top-0 bottom-0 p-3 bg-green-700 text-white rounded-full hover:bg-green-800">
-                  <FaSearch />
-                </button>
-              </div>
+            <div className="relative  flex items-center">
+              <input
+                type="search"
+                placeholder="Search...."
+                className="w-full py-2 px-4 border rounded-l-lg focus:outline-none text-black"
+              />
+              <button className="p-3 bg-green-700 text-white rounded-r-lg  hover:bg-green-800">
+                <FaSearch />
+              </button>
             </div>
           </div>
           {/* Contact Info */}

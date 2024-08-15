@@ -64,13 +64,13 @@ const ServiceSection = () => {
                   Download
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="news" className="overflow-y-auto bar p-2">
+              <TabsContent value="news" className=" p-2">
                 <NewsSection />
               </TabsContent>
-              <TabsContent value="notice" className="h-96">
+              <TabsContent value="notice" className="h-96  p-2 ">
                 <NoticeSection />
               </TabsContent>
-              <TabsContent value="download" className="py-4 ">
+              <TabsContent value="download" className="p-2  max-h-[450px]">
                 <DownloadSection />
               </TabsContent>
             </Tabs>

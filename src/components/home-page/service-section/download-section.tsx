@@ -3,12 +3,14 @@ import React from "react";
 
 const DownloadSection = () => {
   return (
-    <div>
-      {[1, 2, 3].map((item) => (
-        <div key={item}>
-          <DownloadCard />
-        </div>
-      ))}
+    <div className="max-h-[450px]">
+      <div>
+        {[1, 2, 3].map((item) => (
+          <div key={item}>
+            <DownloadCard />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

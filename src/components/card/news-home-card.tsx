@@ -4,7 +4,7 @@ import { FaCalendar } from "react-icons/fa";
 
 const NewsHomeCard = () => {
   return (
-    <div className="m-2">
+    <div className="m-1">
       <div className="bg-white rounded-md p-2 flex items-start gap-4 shadow-lg text-black">
         {/* Image Section */}
         <div className="flex-shrink-0 w-1/3">
