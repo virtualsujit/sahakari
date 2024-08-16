@@ -3,10 +3,9 @@ import TeamCard from "../card/team-card";
 
 const MessageFromTeam = () => {
   return (
-    <div className="grid grid-cols-3 gap-4 place-content-center  max-w-[1400px] mx-auto place-items-center ">
-      {" "}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] mx-auto px-4 py-6">
       {[1, 2, 3].map((item) => (
-        <div key={item}>
+        <div key={item} className="w-full">
           <TeamCard />
         </div>
       ))}

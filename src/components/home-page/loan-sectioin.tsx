@@ -35,6 +35,10 @@ const LoanSection = () => {
       icon: <FaBuilding />,
       title: "Business Loan",
     },
+    {
+      icon: <FaBuilding />,
+      title: "Business Loan",
+    },
   ];
 
   return (
@@ -46,7 +50,7 @@ const LoanSection = () => {
           Variety of loans that will suit your needs
         </p>
 
-        <div className="max-w-7xl mx-auto">
+        <div className="  max-w-[1350px] px-4   mx-auto">
           <Carousel
             plugins={[
               Autoplay({
@@ -58,7 +62,7 @@ const LoanSection = () => {
               {data.map((item, index) => (
                 <CarouselItem
                   key={index}
-                  className="flex items-center justify-center  h-44 w-32   bg-white  hover:text-white p-4 rounded-lg   md:basis-1/2 lg:basis-1/4 mx-4 hover:bg-[radial-gradient(#32488A,#1d2e61)]  "
+                  className="flex items-center justify-center  h-44 w-32  bg-white  hover:text-white p-4 rounded-lg   lg:basis-1/3 xl:basis-1/4 mx-4 hover:bg-[radial-gradient(#32488A,#1d2e61)]  "
                 >
                   <div className=" flex flex-col gap-4  items-center justify-between ">
                     <div className="text-4xl">{item.icon}</div>
@@ -67,8 +71,8 @@ const LoanSection = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden xl:block" />
+            <CarouselNext className="hidden xl:block" />
           </Carousel>
         </div>
         <div className="flex justify-center items-center">

@@ -9,7 +9,7 @@ import Link from "next/link";
 
 const Topbar = () => {
   return (
-    <section className="  bg-blue-700/85  ">
+    <section className="  bg-blue-700/85 hidden sm:block   ">
       <div className=" max-w-[1400px] mx-auto flex justify-between items-center px-4   py-2">
         <div className=" gap-4 flex ">
           <Link href="/contact-us" className="flex gap-1 items-center">
@@ -17,7 +17,10 @@ const Topbar = () => {
             <Handshake size={18} />
             Help Desk
           </Link>
-          <Link href="/news-and-notices/news" className="flex gap-1 items-center">
+          <Link
+            href="/news-and-notices/news"
+            className="flex gap-1 items-center"
+          >
             {" "}
             <Newspaper size={18} /> News
           </Link>
@@ -29,7 +32,7 @@ const Topbar = () => {
         </div>
 
         <div>
-          <button className="flex gap-1 items-center bg-yellow-400 rounded-xl px-2 p-0.5 ">
+          <button className="flex gap-1 items-center bg-yellow-400 hover:bg-yellow-500 text-white font-semibold rounded-xl px-4 py-2 transition-colors duration-200">
             Apply Now <CalendarPlus2 size={18} />
           </button>
         </div>

@@ -41,8 +41,8 @@ const ServiceSection = () => {
     <div className="bg-gray-100 w-full text-black py-8">
       <div className="max-w-[1400px] mx-auto px-4">
         <SectioinTitle title="Presenting Our Services" />
-        <div className="flex justify-between gap-4 mt-4">
-          <div className="w-1/2 py-4">
+        <div className="flex flex-col-reverse  lg:flex-row justify-between gap-4 mt-4">
+          <div className="lg:w-1/2 py-4">
             <Tabs defaultValue="news" className="w-full shadow-white bg-white">
               <TabsList className="bg-[#32488A] w-full flex">
                 <TabsTrigger
@@ -75,7 +75,7 @@ const ServiceSection = () => {
               </TabsContent>
             </Tabs>
           </div>
-          <div className="w-1/2 py-4 flex flex-col gap-5">
+          <div className="lg:w-1/2 py-4 flex flex-col gap-5">
             {services.map((item, index) => (
               <motion.div
                 key={index}
