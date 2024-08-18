@@ -45,7 +45,7 @@ const BottomBar = () => {
                   <NavigationMenuItem key={index} className="relative">
                     <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
                     <NavigationMenuContent
-                      className="p-4 w-96 absolute top-full mt-1 flex flex-col gap-3 rounded-lg shadow-lg"
+                      className="p-4 w-96 absolute top-full mt-1 flex flex-col gap-3  shadow-lg"
                       style={{
                         background: "radial-gradient(#32488A, #1d2e61)",
                       }}
@@ -64,7 +64,7 @@ const BottomBar = () => {
                                     {child.title}
                                   </NavigationMenuTrigger>
                                   <NavigationMenuContent
-                                    className="p-4 mt-4 left-0 absolute top-full flex flex-col gap-3 rounded-lg shadow-md"
+                                    className="p-4 mt-4 left-0 absolute top-full flex flex-col gap-3  shadow-md"
                                     style={{
                                       background:
                                         "radial-gradient(#32488A, #1d2e61)",
@@ -103,14 +103,14 @@ const BottomBar = () => {
                               <a
                                 href={child.link}
                                 target="_blank"
-                                className="hover:bg-green-600 p-2 rounded-md transition-colors duration-200"
+                                className="hover:bg-green-600 p-2  transition-colors duration-200"
                               >
                                 {child.title}
                               </a>
                             ) : (
                               <Link
                                 href={child.link}
-                                className="hover:bg-green-600 p-2 rounded-md transition-colors duration-200"
+                                className="hover:bg-green-600 p-2  transition-colors duration-200"
                               >
                                 {child.title}
                               </Link>
@@ -141,9 +141,9 @@ const BottomBar = () => {
             <SheetTrigger>
               <Menu />
             </SheetTrigger>
-            <SheetContent className="bg-gray-200 text-black p-4 rounded-t-lg shadow-lg overflow-y-auto ">
+            <SheetContent className="bg-gray-200 text-black p-4   shadow-lg overflow-y-auto ">
               <SheetHeader>
-                <SheetTitle className="text-lg font-semibold">
+                <SheetTitle className="text-lg font-semibold text-center ">
                   Royal Co-operatives
                 </SheetTitle>
                 <SheetDescription>
@@ -153,9 +153,9 @@ const BottomBar = () => {
                         <AccordionTrigger className="font-medium  hover:text-green-900 transition-colors duration-200">
                           {item.title}
                         </AccordionTrigger>
-                        <AccordionContent className="pl-4 py-2">
+                        <AccordionContent className="pl-4 py-2 flex items-start justify-start flex-col gap-2">
                           {item.children ? (
-                            <ul className="flex items-start justify-start flex-col gap-2">
+                            <ul className="flex items-start justify-start flex-col gap-2 ">
                               {item.children.map((child, childIndex) => (
                                 <li key={childIndex}>
                                   <Link
@@ -170,7 +170,7 @@ const BottomBar = () => {
                           ) : (
                             <Link
                               href={item.link}
-                              className="text-sm  hover:underline"
+                              className="text-sm items-start  hover:underline"
                             >
                               {item.title}
                             </Link>

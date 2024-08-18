@@ -28,14 +28,14 @@ const currencyData = {
 
 const CurrencyTable = () => {
   return (
-    <div className="max-w-4xl mx-auto my-8 bg-white shadow-md rounded-lg overflow-hidden">
-      <table className="min-w-full table-auto">
+    <div className="max-w-4xl mx-auto my-8 bg-white rounded-lg overflow-hidden px-4 ">
+      <table className="min-w-full table-auto  border border-gray-300">
         <thead className=" bg-[#32488A] text-white">
           <tr>
-            <th className="px-4 py-2">Currency</th>
-            <th className="px-4 py-2">Unit</th>
-            <th className="px-4 py-2">Buy</th>
-            <th className="px-4 py-2">Sell</th>
+            <th className="px-4 py-2 border border-gray-300">Currency</th>
+            <th className="px-4 py-2 border border-gray-300">Unit</th>
+            <th className="px-4 py-2 border border-gray-300">Buy</th>
+            <th className="px-4 py-2 border border-gray-300">Sell</th>
           </tr>
         </thead>
         <tbody>
@@ -46,10 +46,18 @@ const CurrencyTable = () => {
                 index % 2 === 0 ? "bg-gray-100" : "bg-white"
               }`}
             >
-              <td className="px-4 py-2 text-gray-800">{currency.name}</td>
-              <td className="px-4 py-2 text-gray-800">{currency.unit}</td>
-              <td className="px-4 py-2 text-gray-800">{currency.buy}</td>
-              <td className="px-4 py-2 text-gray-800">{currency.sell}</td>
+              <td className="px-4 py-2 text-gray-800 border border-gray-300">
+                {currency.name}
+              </td>
+              <td className="px-4 py-2 text-gray-800 border border-gray-300">
+                {currency.unit}
+              </td>
+              <td className="px-4 py-2 text-gray-800 border border-gray-300">
+                {currency.buy}
+              </td>
+              <td className="px-4 py-2 text-gray-800 border border-gray-300">
+                {currency.sell}
+              </td>
             </tr>
           ))}
         </tbody>

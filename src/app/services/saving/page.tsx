@@ -189,21 +189,21 @@ const SavingProducts = () => {
   ];
 
   return (
-    <div className="max-w-[1400px] flex justify-between gap-4 mx-auto text-black py-4">
-      <div className="w-1/4 mx-auto p-6 bg-gray-100 shadow-md sticky top-20 h-[calc(100vh-140px)]">
+    <div className="max-w-[1400px] flex flex-col lg:flex-row  justify-between gap-4 mx-auto text-black py-4">
+      <div className="lg:w-1/4 mx-auto p-6 bg-gray-100 shadow-md lg:sticky lg:top-20 lg:h-screen  w-full ">
         {saving.map((service, index) => (
           <Link
             href={`#${service.id}`}
             key={index}
             className="flex justify-between items-center py-2 border-b border-gray-300"
           >
-            <span className="text-gray-500 font-medium">
+            <span className="text-gray-500 font-medium line-clamp-1">
               {service.type} ({service.nepali})
             </span>
           </Link>
         ))}
       </div>
-      <div className="w-3/4 px-4  text-black">
+      <div className="lg:w-3/4 px-4 w-full  text-black">
         {products.map((product, index) => (
           <div key={product.id} className="mb-8" id={product.id}>
             <h2 className="text-xl font-bold mb-2">{product.name}</h2>

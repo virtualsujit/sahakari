@@ -6,8 +6,8 @@ import { ChevronsRight } from "lucide-react";
 
 const Page = () => {
   return (
-    <div className="text-black max-w-[1400px] mx-auto py-8 flex gap-8">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6 w-3/4">
+    <div className="text-black max-w-[1400px] mx-auto py-8 flex flex-col lg:flex-row  px-4 gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6 lg:w-3/4">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
           <div
             className="text-center bg-white p-2 rounded-lg shadow-md"
@@ -25,7 +25,7 @@ const Page = () => {
           </div>
         ))}
       </div>
-      <div className="w-1/4 bg-green-700 rounded-lg p-6 text-white sticky top-20 max-h-[calc(100vh-400px)] overflow-y-auto">
+      <div className="lg:w-1/4 bg-green-700 rounded-lg p-6 text-white md:sticky md:top-20 md:max-h-[calc(100vh-400px)] overflow-y-auto">
         <h2 className="text-xl text-center font-bold mb-8">Meet Our Team</h2>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col items-start gap-0 ">

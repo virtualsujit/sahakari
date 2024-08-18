@@ -96,26 +96,26 @@ const serviceChargeBank = {
 
 const Page = () => {
   return (
-    <div className="max-w-[1400px] flex justify-between mx-auto text-black py-4">
+    <div className="max-w-[1400px] flex flex-col lg:flex-row justify-between mx-auto text-black py-4">
       {/* Sidebar with Image */}
-      <div className="w-2/6 mx-auto p-2 bg-gray-100 shadow-md sticky top-20 h-[calc(100vh-140px)]">
+      <div className="lg:w-2/6 mx-auto p-2 bg-gray-100 shadow-md lg:sticky lg:top-20 lg:h-[calc(100vh-140px)]">
         <Image
           src="https://c8.alamy.com/comp/2C47WGP/creative-abstract-modern-corporate-business-vertical-roll-up-banner-design-template-vector-illustration-concept-exhibition-advertising-presentation-2C47WGP.jpg"
           alt="Achievement"
           width={900}
           height={900}
-          className="h-full object-cover"
+          className="max-h-96 lg:h-full lg:max-h-full object-contain lg:object-cover "
         />
       </div>
 
       {/* Main Content */}
-      <div className="p-6 text-black w-4/6">
+      <div className="p-6 text-black lg:w-4/6">
         <div className="space-y-8">
           <section className="text-center">
             <h1 className="text-4xl font-bold text-gray-800">
               Royal Smart Banking
             </h1>
-            <p className="mt-4 text-lg text-gray-600">
+            <p className="mt-4 text-lg text-gray-600 text-justify">
               Step into the digital world with our fully digital and secured
               mobile banking application available on Android and iOS platforms
               for our valued members. The application allows users to securely

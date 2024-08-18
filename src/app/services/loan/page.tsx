@@ -79,29 +79,40 @@ const page = () => {
   ];
 
   return (
-    <div className="max-w-[1400px] flex  justify-between  mx-auto text-black py-4 ">
-      <div className="w-1/4 mx-auto p-6 bg-gray-100 shadow-md sticky top-20 h-[calc(100vh-140px)]">
-        {loans.map((service, index) => (
-          <Link
-          href={`#${service.title.toLowerCase().replace(/ /g, "-")}`}
-            key={index}
-            className="flex justify-between items-center py-2 border-b border-gray-300"
-          >
-            <span className="text-gray-500 font-medium">
-              {service.title} ({service.subtitle})
-            </span>
-          </Link>
-        ))}
+    <div className="max-w-[1400px] flex flex-col lg:flex-row  justify-between gap-4 mx-auto text-black py-4">
+      <div className="lg:w-1/4 mx-auto lg:sticky lg:top-20 lg:h-screen  w-full ">
+        <div className=" px-4  lg:hidden">
+          <h1 className="text-green-700 text-2xl font-bold mb-4">Loans</h1>
+          <p className="text-gray-700 mb-6">
+            In cooperation with various consumer shops, discount cards are being
+            provided to its members to save them from the rising inflation.
+          </p>
+        </div>
+        <div className="bg-gray-100 shadow-md p-6 ">
+          {loans.map((service, index) => (
+            <Link
+              href={`#${service.title.toLowerCase().replace(/ /g, "-")}`}
+              key={index}
+              className="flex justify-between items-center py-2 border-b border-gray-300"
+            >
+              <span className="text-gray-500 font-medium">
+                {service.title} ({service.subtitle})
+              </span>
+            </Link>
+          ))}
+        </div>
       </div>
 
-      <div className=" p-6 text-black w-3/4 ">
-        <h1 className="text-green-700 text-2xl font-bold mb-4">Loans</h1>
-        <p className="text-gray-700 mb-6">
-          In cooperation with various consumer shops, discount cards are being
-          provided to its members to save them from the rising inflation.
-        </p>
+      <div className="lg:w-3/4 px-4 w-full  text-black">
+        <div className=" hidden lg:block">
+          <h1 className="text-green-700 text-2xl font-bold mb-4">Loans</h1>
+          <p className="text-gray-700 mb-6">
+            In cooperation with various consumer shops, discount cards are being
+            provided to its members to save them from the rising inflation.
+          </p>
+        </div>
 
-        <div className="space-y-8">
+        <div className="  px-4 w-full  text-black">
           {loadDescription.map((product, index) => (
             <div key={product.id} className="mb-8" id={product.id}>
               <h2 className="text-xl font-bold mb-2">{product.name}</h2>

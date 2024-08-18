@@ -43,9 +43,9 @@ const contactData = {
 
 const ContactComponents = () => {
   return (
-    <div className="mx-auto p-3 flex gap-8 items-start justify-between bg-white">
+    <div className="mx-auto p-3 flex flex-col  md:flex-row  gap-8 items-start justify-between bg-white">
       {/* Image Section */}
-      <div className="w-1/2">
+      <div className= " w-full md:w-1/2">
         <Image
           src={contactData.imageSrc}
           alt="Pokhara Royal Cooperative Society Limited"
@@ -56,19 +56,19 @@ const ContactComponents = () => {
       </div>
 
       {/* Contact Information Section */}
-      <div className="w-1/2 space-y-3">
+      <div className="md:w-1/2 space-y-3">
         {contactData.contacts.map((contact, index) => (
           <div key={index} className="flex items-center space-x-4">
             <div className="bg-green-700 text-white p-4 rounded-full flex items-center justify-center">
               <contact.icon className="" />
             </div>
-            <div>
+            <div className="overflow-hidden">
               {contact.label === "Facebook" || contact.label === "Instagram" ? (
                 <a
                   href={contact.value}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-800"
+                  className="text-gray-800 line-clamp-1 "
                 >
                   {contact.value}
                 </a>

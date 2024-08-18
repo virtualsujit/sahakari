@@ -19,14 +19,14 @@ const NewsCard = () => {
 
         {/* Content Section */}
         <div className="flex-1">
-          <h2 className="font-semibold text-lg mb-2">
+          <h2 className="font-semibold  sm:text-lg mb-2 line-clamp-2">
             माेहरिया सेवाकेन्द्रमा सदस्य शिक्षा तालिम सम्पन्न
           </h2>
-          <p className="bg-green-700 text-white rounded-full text-xs px-3 py-1 inline-flex items-center gap-2 mb-4">
+          <p className="bg-green-700 text-white rounded-full text-xs px-3 py-1 inline-flex items-center gap-2 mb-4 ">
             <FaCalendar />
-            <span>2021-09-12</span>
+            <span className="line-clamp-1">2021-09-12</span>
           </p>
-          <p className="line-clamp-3 text-sm text-gray-700">
+          <p className="line-clamp-2 sm:line-clamp-3 text-sm text-gray-700">
             पोखरा रोयल साकोसको वार्षिक कार्यक्रम अनुसार संस्थाले सदस्य शिक्षा
             कार्यक्रम सन्चालन गर्दै आएकोमा मोहरिया सेवाकेन्द्र अन्तर्गतका आफ्ना
             सदस्यहरुलाई मिति २०७८ पौष २३ गते सदस्य शिक्षा तालिम प्रदान गरेको छ ।

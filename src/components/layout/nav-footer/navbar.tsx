@@ -23,9 +23,9 @@ const Navbar = () => {
       <NoticeBar />
       <Topbar />
       <section className="bg-white max-w-[1400px] mx-auto px-4">
-        <div className="py-4 flex justify-between items-center gap-4">
+        <div className="py-4 flex justify-between items-center gap-8">
           {/* Brand Logo */}
-          <div className="flex items-center justify-between gap-4 flex-1   ">
+          <div className="flex items-center justify-center md:justify-between  gap-8 flex-1   ">
             <Link href="/" className="">
               <Image
                 src="/images/logo.png"

@@ -31,8 +31,8 @@ const BankingSection = () => {
             />
           </div>
         </div>
-        <div className="space-y-4 lg:w-1/2 flex flex-col-reverse  lg:flex-row justify-between gap-8">
-          <div className="flex items-center justify-center">
+        <div className="space-y-4 lg:w-1/2 flex flex-col-reverse  lg:flex-col  justify-between gap-8">
+          <div className="flex items-center justify-center ">
             <Image
               src="/images/Home/atm.png"
               width={500}
@@ -40,14 +40,13 @@ const BankingSection = () => {
               alt=""
               className="rounded-xl h-64 lg:h-96 object-contain mt-3 hidden lg:block"
             />
-             <Image
+            <Image
               src="/images/Home/mobile-bank.png"
               width={500}
               height={300}
               alt=""
               className="rounded-xl h-64 lg:h-96 object-contain mt-3 lg:hidden "
             />
-
           </div>
           <div>
             <SectioinTitle title="Mobile Banking Service" />

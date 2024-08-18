@@ -22,7 +22,7 @@ const Page = () => {
             alt="Achievement"
             width={900}
             height={900}
-            className="w-full h-72 object-cover rounded-lg"
+            className="w-full h-96  lg:h-72  object-cover rounded-lg"
           />
           <p className="mt-4 border-l-4 pl-4 border-green-500">
             We received the award for Best Educational Institution in the
@@ -36,7 +36,7 @@ const Page = () => {
             alt="Achievement"
             width={900}
             height={900}
-            className="w-full h-72 object-cover rounded-lg"
+            className="w-full h-96  lg:h-72  object-cover rounded-lg"
           />
           <p className="mt-4 border-l-4 pl-4 border-green-500">
             We received the award for Best Educational Institution in the
@@ -50,7 +50,7 @@ const Page = () => {
             alt="Achievement"
             width={900}
             height={900}
-            className="w-full h-72 object-cover rounded-lg"
+            className="w-full h-96  lg:h-72  object-cover rounded-lg"
           />
           <p className="mt-4 border-l-4 pl-4 border-green-500">
             We received the award for Best Educational Institution in the

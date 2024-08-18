@@ -8,7 +8,7 @@ const page = () => {
         defaultValue="headoffice"
         className="w-full  shadow-white bg-white  "
       >
-        <TabsList className="bg-[#32488A] w-full flex">
+        <TabsList className="bg-[#32488A] w-full flex  h-full  flex-col md:flex-row ">
           <TabsTrigger
             value="headoffice"
             className="flex-1 text-center text-white"
@@ -23,7 +23,7 @@ const page = () => {
           </TabsTrigger>
           <TabsTrigger
             value="bhandardhik"
-            className="flex-1 text-center text-white"
+            className="flex-1 text-center text-white  "
           >
             Bhandardhik Service Centre
           </TabsTrigger>
@@ -34,7 +34,7 @@ const page = () => {
             Mohoriya Service Centre
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="headoffice" className="p-2">
+        <TabsContent value="headoffice" className="">
           <ContactComponents />
         </TabsContent>
         <TabsContent value="dulegauda" className="">
