@@ -21,7 +21,7 @@ const SectioinTitle = ({title}:Props) => {
       viewport={{ once: false }}
     >
       <span className="border-2 bg-[#32488A] p-1 rounded-full w-9 h-2 block" />
-      <h2 className="text-2xl">{title}</h2>
+      <h2 className=" font-medium  text-xl sm:text-2xl">{title}</h2>
       <span className="border-2 bg-[#32488A] p-1 rounded-full w-9 h-2 block" />
     </motion.div>
   );

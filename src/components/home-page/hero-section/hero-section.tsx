@@ -1,4 +1,5 @@
 import {
+  Building2,
   ChevronRight,
   TabletSmartphone,
 } from "lucide-react";
@@ -11,7 +12,7 @@ import PhotoCarousel from "./photo-carousel";
 const HomeHeroSection = () => {
   const services = [
     {
-      icon: <FaAtom size={35} />,
+      icon: <Building2 size={35}/>,
       title: "ATM Service",
     },
     {

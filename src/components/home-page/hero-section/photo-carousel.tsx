@@ -45,7 +45,7 @@ const PhotoCarousel = ({ data }: PhotoCarouselProps) => {
                     alt={item.alt}
                     width={1920}
                     height={1080}
-                    className="h-[600px]  w-full object-cover"
+                    className=" md:h-[600px]  w-full object-cover"
                     quality={100}
                   />
                 </div>
