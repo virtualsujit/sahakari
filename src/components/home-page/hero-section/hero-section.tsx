@@ -48,7 +48,7 @@ const HomeHeroSection = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row text-black gap-4 max-w-[1400px] mx-auto p-4">
+    <div className="flex flex-col md:flex-row text-black gap-4 max-w-[1400px] mx-auto pb-0 p-4">
       <div className="w-full md:w-2/3">
         <PhotoCarousel data={staticData} />
       </div>
