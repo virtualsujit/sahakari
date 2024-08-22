@@ -14,27 +14,27 @@ const contactData = {
     "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   contacts: [
     {
-      icon: FaMapMarkerAlt,
+      icon: <FaMapMarkerAlt />,
       label: "Address",
       value: "Shuklagandaki Municipality -4, Dulegaunda, Tanahu",
     },
     {
-      icon: FaPhoneAlt,
+      icon: <FaPhoneAlt />,
       label: "Phone",
       value: "+977-65-414490",
     },
     {
-      icon: FaEnvelope,
+      icon: <FaEnvelope />,
       label: "Email",
       value: "info@royalcooperative.com",
     },
     {
-      icon: FaFacebook,
+      icon: <FaFacebook />,
       label: "Facebook",
       value: "https://www.facebook.com/pokhararoyalsaccos",
     },
     {
-      icon: FaInstagram,
+      icon: <FaInstagram />,
       label: "Instagram",
       value: "https://www.instagram.com/pokhararoyalsaccos",
     },
@@ -43,9 +43,9 @@ const contactData = {
 
 const ContactComponents = () => {
   return (
-    <div className="mx-auto p-3 flex flex-col  md:flex-row  gap-8 items-start justify-between bg-white">
+    <div className="mx-auto p-4 flex flex-col md:flex-row gap-8 items-start justify-between bg-white">
       {/* Image Section */}
-      <div className= " w-full md:w-1/2">
+      <div className="w-full md:w-1/2">
         <Image
           src={contactData.imageSrc}
           alt="Pokhara Royal Cooperative Society Limited"
@@ -56,11 +56,11 @@ const ContactComponents = () => {
       </div>
 
       {/* Contact Information Section */}
-      <div className="md:w-1/2 space-y-3">
+      <div className="w-full md:w-1/2 space-y-4">
         {contactData.contacts.map((contact, index) => (
           <div key={index} className="flex items-center space-x-4">
-            <div className="bg-green-700 text-white p-4 rounded-full flex items-center justify-center">
-              <contact.icon className="" />
+            <div className="bg-green-700 text-white p-3 rounded-full flex items-center justify-center">
+              {contact.icon}
             </div>
             <div className="overflow-hidden">
               {contact.label === "Facebook" || contact.label === "Instagram" ? (
@@ -68,12 +68,12 @@ const ContactComponents = () => {
                   href={contact.value}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-800 line-clamp-1 "
+                  className="text-gray-800 break-words hover:underline"
                 >
                   {contact.value}
                 </a>
               ) : (
-                <p className="text-gray-800">{contact.value}</p>
+                <p className="text-gray-800 break-words">{contact.value}</p>
               )}
             </div>
           </div>
