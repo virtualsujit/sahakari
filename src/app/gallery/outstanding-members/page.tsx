@@ -27,7 +27,7 @@ const Page = () => {
           <div className="mt-4 border-l-4 pl-4 border-green-500">
             <p className="hover:ml-3 transition-all duration-200">
               {" "}
-              MR.Shankar Lamicchane
+              Mr. John Doe
             </p>
 
             <p className="hover:ml-3 transition-all duration-200">
@@ -47,7 +47,7 @@ const Page = () => {
           <div className="mt-4 border-l-4 pl-4 border-green-500">
             <p className="hover:ml-3 transition-all duration-200">
               {" "}
-              MR.Shankar Lamicchane
+              Mr. John Doe
             </p>
 
             <p className="hover:ml-3 transition-all duration-200">
@@ -67,7 +67,7 @@ const Page = () => {
           <div className="mt-4 border-l-4 pl-4 border-green-500">
             <p className="hover:ml-3 transition-all duration-200">
               {" "}
-              MR.Shankar Lamicchane
+              Mr. John Doe
             </p>
 
             <p className="hover:ml-3 transition-all duration-200">

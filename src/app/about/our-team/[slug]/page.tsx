@@ -5,7 +5,7 @@ import Link from "next/link";
 const Page = () => {
   return (
     <div className="text-black max-w-[1400px] mx-auto py-8 flex flex-col lg:flex-row  px-4 gap-8">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-6 lg:w-3/4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 gap-6 lg:w-3/4">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
           <div
             className="text-center bg-white p-2 rounded-lg shadow-md"
@@ -18,8 +18,10 @@ const Page = () => {
               height={500}
               className="border-2 w-full border-gray-200 rounded-lg object-cover"
             />
-            <p className="mt-4 font-semibold text-lg">Sujit Dhungana</p>
-            <p className="text-sm text-gray-600">Chairperson</p>
+            <p className="mt-4 font-semibold text-xs sm:text-lg">
+              Mr.John Doe{" "}
+            </p>
+            <p className="text-xs sm:text-sm text-gray-600">Chairperson</p>
           </div>
         ))}
       </div>
