@@ -1,3 +1,4 @@
+import ImageCard from "@/components/card/image-card";
 import BankingSection from "@/components/home-page/atm-mobile-banking-section";
 import ContactSection from "@/components/home-page/contact/contact-section";
 import HomeHeroSection from "@/components/home-page/hero-section/hero-section";
@@ -11,6 +12,7 @@ import VisioinSection from "@/components/home-page/vision-sectioin";
 export default function Home() {
   return (
     <div className="min-h-screen  pb-4  space-y-4">
+      <ImageCard />
       <HomeHeroSection />
       <VisioinSection />
       <MessageFromTeam />
