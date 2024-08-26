@@ -41,7 +41,7 @@ const InstitutionalProfile = () => {
   ];
 
   return (
-    <div className="text-black p-4 max-w-[1400px] mx-auto">
+    <div className="text-black p-4 md:max-w-[1400px] mx-auto">
       <SectioinTitle title="Institutional Profile" />
       <p className="font-semibold">Data of fiscal year 2079/80</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">

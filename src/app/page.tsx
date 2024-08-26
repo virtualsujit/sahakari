@@ -15,9 +15,9 @@ export default function Home() {
       <ImageCard />
       <HomeHeroSection />
       <VisioinSection />
-      <MessageFromTeam />
-      <ServiceSection />
-      <InstitutionalProfile />
+      <MessageFromTeam /> 
+      <ServiceSection /> 
+      <InstitutionalProfile /> 
       <LoanSection />
       <BankingSection />
       <ContactSection />

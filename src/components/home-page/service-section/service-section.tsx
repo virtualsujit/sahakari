@@ -38,12 +38,12 @@ const ServiceSection = () => {
   };
 
   return (
-    <div className="bg-gray-100 w-full text-black py-8">
-      <div className="max-w-[1400px] mx-auto px-4">
+    <div className="bg-gray-100 text-black py-8 overflow-x-hidden">
+      <div className="md:max-w-[1400px] mx-auto px-4">
         <SectioinTitle title="Presenting Our Services" />
-        <div className="flex flex-col-reverse  lg:flex-row justify-between gap-4 mt-4">
+        <div className="flex flex-col-reverse lg:flex-row justify-between gap-4 mt-4">
           <div className="lg:w-1/2 py-4">
-            <Tabs defaultValue="news" className="w-full shadow-white bg-white">
+            <Tabs defaultValue="news" className="w-full bg-white">
               <TabsList className="bg-[#32488A] w-full flex">
                 <TabsTrigger
                   value="news"
@@ -64,13 +64,13 @@ const ServiceSection = () => {
                   Download
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="news" className=" p-2">
+              <TabsContent value="news" className="p-2">
                 <NewsSection />
               </TabsContent>
-              <TabsContent value="notice" className="h-96  p-2 ">
+              <TabsContent value="notice" className="p-2">
                 <NoticeSection />
               </TabsContent>
-              <TabsContent value="download" className="p-2  max-h-[450px]">
+              <TabsContent value="download" className="p-2 max-h-[450px]">
                 <DownloadSection />
               </TabsContent>
             </Tabs>
