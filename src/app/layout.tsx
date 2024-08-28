@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Footer, Navbar } from "@/components/layout/nav-footer";
 import { Toaster } from "react-hot-toast";
-import BottomBar from "@/components/nav-bar/bottom-bar";
-import CircleLogoNav from "@/components/layout/nav-footer/circle_logo_nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` text-white ${inter.className}`}>
-        <Navbar />
-        <div className="sticky top-0 z-50">
-          <BottomBar />
-        </div>
-        {/* <CircleLogoNav /> */}
         {children}
         <Toaster position="bottom-right" />
-        <Footer />
       </body>
     </html>
   );
