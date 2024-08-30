@@ -30,18 +30,19 @@ const DashboardSidebar = () => {
     {
       name: "Pop Up Photos",
       icon: <Newspaper size={18} />,
-      children: [
-        {
-          name: "Add Pop Up ",
-          link: "/dashboard/popup/add",
-          icon: <Newspaper size={18} />,
-        },
-        {
-          name: "View Pop Up ",
-          link: "/dashboard/popup/view",
-          icon: <Newspaper size={18} />,
-        },
-      ],
+      link: "/dashboard/popup",
+      // children: [
+      //   {
+      //     name: "Add Pop Up ",
+      //     link: "/dashboard/popup/add",
+      //     icon: <Newspaper size={18} />,
+      //   },
+      //   {
+      //     name: "View Pop Up ",
+      //     link: "/dashboard/popup/view",
+      //     icon: <Newspaper size={18} />,
+      //   },
+      // ],
     },
     {
       name: "News and Notices",
