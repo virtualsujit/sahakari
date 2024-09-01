@@ -1,53 +1,51 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { createClient } from "@supabase/supabase-js";
 
 const prisma = new PrismaClient();
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
 
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const formData = await req.formData();
-    const title = formData.get("title") as string;
-    const content = formData.get("description") as string;
-    const date = formData.get("date") as string;
+    const body = await request.json();
+    const { title, content, date, thumbnail } = body;
 
-    const newArticle = await prisma.news.create({
-      data: { title, content, date },
+    const newNewsArticle = await prisma.news.create({
+      data: {
+        title,
+        content,
+        date: date,
+        imageUrl:thumbnail,
+      },
     });
 
-    const photos = formData.getAll("photos") as File[];
-
-    const photoPromises = photos.map(async (photo) => {
-      const { data, error } = await supabase.storage
-        .from("your-bucket-name")
-        .upload(`photos/${newArticle.id}/${photo.name}`, photo);
-
-      if (error) throw error;
-
-      const publicUrl = supabase.storage
-        .from("your-bucket-name")
-        .getPublicUrl(`photos/${newArticle.id}/${photo.name}`).data.publicUrl;
-
-      return prisma.photo.create({
-        data: {
-          photo: Buffer.from(await photo.arrayBuffer()),
-          news: { connect: { id: newArticle.id } },
-          album: null,
-        },
-      });
-    });
-
-    await Promise.all(photoPromises);
-
-    return NextResponse.json(newArticle);
+    return NextResponse.json(newNewsArticle);
   } catch (error) {
-    console.error("Error saving news article:", error);
+    console.error("Error creating news article:", error);
     return NextResponse.json(
-      { error: "Failed to save news article" },
+      { error: "Failed to create news article." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+
+  const date = searchParams.get("date");
+
+  try {
+    const newsArticles = date
+      ? await prisma.news.findMany({
+          where: {
+            date: date,
+          },
+        })
+      : await prisma.news.findMany();
+
+    return NextResponse.json(newsArticles);
+  } catch (error) {
+    console.error("Error fetching news articles:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch news articles." },
       { status: 500 }
     );
   }

@@ -5,7 +5,7 @@ import { useDropzone } from "react-dropzone";
 import { XCircle } from "lucide-react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
-import { v4 as uuidv4 } from "uuid";
+import { v4 } from "uuid";
 
 const PhotoUploadPopup = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -29,7 +29,7 @@ const PhotoUploadPopup = () => {
     setUploading(true);
     try {
       const uploadPromises = selectedFiles.map(async (file) => {
-        const fileName = uuidv4();
+        const fileName = v4();
         const { data, error } = await supabase.storage
           .from("popup")
           .upload(`/${fileName}`, file);
@@ -82,6 +82,9 @@ const PhotoUploadPopup = () => {
       );
 
       setUploadedPhotos(photoURLs.map((url) => url.signedUrl));
+    
+      console.log("Uploaded photos:", photoURLs);
+     
     } catch (error) {
       console.error("Error fetching uploaded photos:", error);
     }
@@ -124,8 +127,7 @@ const PhotoUploadPopup = () => {
                   <Image
                     src={URL.createObjectURL(file)}
                     alt={`preview-${index}`}
-                    height={96}
-                    width={96}
+                     layout="fill"
                     className="object-cover w-full h-24 rounded-lg"
                   />
                   <button
@@ -153,18 +155,19 @@ const PhotoUploadPopup = () => {
             Uploaded Pop-Up Photos
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {uploadedPhotos.map((url, index) => (
-              <div key={index} className="relative group">
-                <Image
-                  src={url}
-                  alt={`uploaded-${index}`}
-                  height={1000}
-                  width={8000}
-                  quality={100}
-                  className="object-cover w-full h-52 rounded-lg shadow-md"
-                />
-              </div>
-            ))}
+            {uploadedPhotos.length > 1 &&
+              uploadedPhotos.map((url, index) => (
+                <div key={index} className="relative group">
+                  <Image
+                    src={url}
+                    alt={`uploaded-${index}`}
+                    height={1000}
+                    width={8000}
+                    quality={100}
+                    className="object-cover w-full h-52 rounded-lg shadow-md"
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </div>

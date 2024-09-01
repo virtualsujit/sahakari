@@ -6,7 +6,6 @@ import { CircleX } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 
 const ImageCard = () => {
-  
   const [visibleImages, setVisibleImages] = useState<string[]>([]);
 
   // Fetch uploaded photos from Supabase
@@ -31,7 +30,6 @@ const ImageCard = () => {
         })
       );
 
-  
       setVisibleImages(photoURLs); // Initially show all images
     } catch (error) {
       console.error("Error fetching uploaded photos:", error);
@@ -51,33 +49,34 @@ const ImageCard = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-85">
-      {visibleImages.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute transition-transform duration-500 ease-in-out ${
-            index === visibleImages.length - 1
-              ? "opacity-100 z-10"
-              : "opacity-0 z-0"
-          }`}
-          style={{ transform: `translateY(${index * 5}px)` }}
-        >
-          <div className="relative bg-white rounded-lg p-4 pt-6 max-w-[90%] sm:max-w-[550px]">
-            <button
-              onClick={() => handleHideImage(index)}
-              className="absolute top-0 right-0 text-red-700 p-0.5 rounded-full"
-            >
-              <CircleX />
-            </button>
-            <Image
-              src={image}
-              alt={`Uploaded Image - ${index}`}
-              width={1000}
-              height={1000}
-              className="w-full h-full object-cover"
-            />
+      {visibleImages.length > 1 &&
+        visibleImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute transition-transform duration-500 ease-in-out ${
+              index === visibleImages.length - 1
+                ? "opacity-100 z-10"
+                : "opacity-0 z-0"
+            }`}
+            style={{ transform: `translateY(${index * 5}px)` }}
+          >
+            <div className="relative bg-white rounded-lg p-4 pt-6 max-w-[90%] sm:max-w-[550px]">
+              <button
+                onClick={() => handleHideImage(index)}
+                className="absolute top-0 right-0 text-red-700 p-0.5 rounded-full"
+              >
+                <CircleX />
+              </button>
+              <Image
+                src={image}
+                alt={`Uploaded Image - ${index}`}
+                width={1000}
+                height={1000}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };
