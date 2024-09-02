@@ -10,46 +10,29 @@ datasource db {
 
 model PopupPhoto {
   id  String @id @default(cuid())
-  url   Json @default("[]")
+  url Json   @default("[]")
 }
 
 model Team {
-  id           String   @id @default(cuid())
-  fullName     String
-  position     String
-  memberType   String
-  profilePhoto String
+  id            String @id @default(cuid())
+  fullName      String
+  position      String
+  memberType    String
+  profilePhoto  String
   contactNumber String
-  email        String
+  email         String
 }
 
-
 model News {
-  id      Int     @id @default(autoincrement())
-  title   String
-  content String
-  date    String
+  id       Int    @id @default(autoincrement())
+  title    String
+  content  String
+  date     String
   imageUrl String
 }
 
-
 model User {
-  id      String   @id @default(uuid())
-  email   String   @unique
-  roles   UserRole[]
+  id    String @unique 
+  email String @unique
+  role  String
 }
-
-model Role {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  users     UserRole[]
-}
-
-model UserRole {
-  userId    String
-  roleId    Int
-  user      User    @relation(fields: [userId], references: [id])
-  role      Role    @relation(fields: [roleId], references: [id])
-  @@id([userId, roleId])
-}
-

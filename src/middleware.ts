@@ -1,10 +1,14 @@
-import { NextResponse, NextRequest } from 'next/server'
- 
-// This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-//   return NextResponse.redirect(new URL('/home', request.url))
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next();
+
+  // Create a Supabase client configured to use cookies
+  const supabase = createMiddlewareClient({ req, res });
+
+  // Refresh session if expired - required for Server Components
+  await supabase.auth.getSession();
+
+  return res;
 }
- 
-// export const config = {
-//   matcher: '/about/:path*',
-// }

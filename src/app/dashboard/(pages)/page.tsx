@@ -1,24 +1,57 @@
 "use client";
-import { supabase } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+
 import { useEffect } from "react";
+import { supabase } from "@/lib/supabase/client";
+import { PrismaClient } from "@prisma/client";
 
 const Page = () => {
-  // const router = useRouter();
-
-  useEffect(() => {
-    const checkSession = async () => {
+  const checkSessionAndModifyUser = async () => {
+    try {
+      // Get session from Supabase
       const {
         data: { session },
       } = await supabase.auth.getSession();
+
       if (!session) {
-        // router.push("/login"); // Redirect to login if not authenticated
-        console.log("redirect to login");
-        return { redirect: { destination: "/login", permanent: false } };
+        console.log("Redirect to login");
+        // Handle redirection logic if necessary
+        return;
       }
-    };
-    checkSession();
-  }, [ ]);
+
+      const { user } = session;
+
+      try {
+        const response = await fetch("/api/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: user.id,
+            email: user.email,
+            role: "user",
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error creating user:", error);
+      }
+
+      console.log("New user created");
+    } catch (error) {
+      console.error("Error checking session or modifying user:", error);
+    }
+  };
+
+  useEffect(() => {
+    checkSessionAndModifyUser();
+  }, []);
 
   return <div>page</div>;
 };
