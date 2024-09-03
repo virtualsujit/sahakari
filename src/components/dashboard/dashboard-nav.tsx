@@ -1,3 +1,4 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,27 +7,138 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { supabase } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FaSpinner } from "react-icons/fa";
 
 const DashboardNav = () => {
+  const [user, setUser] = useState({
+    id: "",
+    email: "",
+    role: "",
+    url: "",
+    name: "",
+  });
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const fetchUser = async () => {
+    toast.loading("Loading user data..."); // Show loading toast
+    setLoading(true);
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        router.push("/dashboard/sign-in");
+        return;
+      }
+
+      const { user } = session;
+      const response = await fetch(`/api/users?email=${user.email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch user role.");
+      }
+      const data = await response.json();
+      setUser({
+        id: user.id,
+        email: user.email ?? "",
+        role: data.role,
+        url: user.user_metadata.avatar_url ?? "",
+        name: user.user_metadata.full_name ?? "",
+      });
+      toast.dismiss(); // Dismiss loading toast
+    } catch (error) {
+      console.error("Error checking user access:", error);
+      toast.error("Error fetching user data.");
+      router.push("/dashboard/sign-in");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast.error("Error logging out.");
+      } else {
+        toast.success("Successfully logged out.");
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Unexpected error during logout:", error);
+      toast.error("Unexpected error during logout.");
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return (
+      <header className="bg-green-700">
+        <nav className="flex items-center justify-between px-4 py-2 text-white max-w-[1400px] mx-auto">
+          <div className="text-lg font-semibold">Dashboard</div>
+          <div>
+            {" "}
+            <FaSpinner />
+          </div>
+        </nav>
+      </header>
+    );
+  }
+
   return (
     <header className="bg-green-700">
-      <nav className="flex items-center justify-between px-4 p-2  text-white max-w-[1400px] mx-auto ">
-        <div className="flex items-center space-x-4">
-          <h1 className="text-lg font-semibold">Dashboard</h1>
-        </div>
-        <div className="flex items-center space-x-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      <nav className="flex items-center justify-between px-4 py-2 text-white max-w-[1400px] mx-auto">
+        <div className="text-lg font-semibold">Dashboard</div>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar>
+              <AvatarImage src={user.url} alt={user.name} />
+              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="   rounded-lg shadow-lg"
+            style={{
+              background: "radial-gradient(#32488A, #1d2e61)",
+            }}
+          >
+            <DropdownMenuLabel className="text-sm font-semibold text-gray-300">
+              Name: {user.name}
+            </DropdownMenuLabel>
+
+            <DropdownMenuItem className="text-gray-200">
+              Email: {user.email}
+            </DropdownMenuItem>
+
+            <DropdownMenuItem className="text-gray-200">
+              Role: {user.role}
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <button
+                onClick={handleLogout}
+                className="w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
+              >
+                Logout
+              </button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </nav>
     </header>
   );

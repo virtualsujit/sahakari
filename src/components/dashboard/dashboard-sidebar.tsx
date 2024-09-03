@@ -36,12 +36,17 @@ const DashboardSidebar = () => {
       icon: <Newspaper size={18} />,
       link: "/dashboard/news",
     },
+    {
+      name: "Manage Accounts",
+      icon: <Newspaper size={18} />,
+      link: "/dashboard/manage-accounts",
+    },
   ];
 
   return (
     <aside
       id="default-sidebar"
-      className="sticky top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      className="sticky top-0 left-0 z-40 w-64 h-screen transition-transform "
       aria-label="Sidebar"
     >
       <div

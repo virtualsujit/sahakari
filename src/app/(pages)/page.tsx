@@ -12,7 +12,7 @@ import VisioinSection from "@/components/home-page/vision-sectioin";
 export default function Home() {
   return (
     <div className="min-h-screen  pb-4  space-y-4">
-      <ImageCard />
+      {/* <ImageCard /> */}
       <HomeHeroSection />
       <VisioinSection />
       <MessageFromTeam /> 

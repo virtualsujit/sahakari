@@ -134,8 +134,8 @@ const NewsAdd: React.FC = () => {
   }, []);
 
   return (
-    <div className=" ">
-      <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg text-gray-900">
+    <div className=" mt-4 px-2 md:px-3 ">
+      <div className="max-w-4xl mx-auto  p-6 bg-white shadow-md rounded-lg text-gray-900">
         <h2 className="text-2xl font-bold mb-6">Add News</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

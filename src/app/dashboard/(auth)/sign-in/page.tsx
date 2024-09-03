@@ -1,12 +1,10 @@
 "use client";
 import { supabase } from "@/lib/supabase/client";
-import { PrismaClient } from "@prisma/client";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
-
-
 const LoginPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +23,7 @@ const LoginPage = () => {
         toast.error("Error signing up with Google:");
       } else {
         toast.success("Successfully signed up with Google.");
-        router.push("/dashboard"); // Redirect to the dashboard after successful login
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Unexpected error:", error);
@@ -34,42 +32,31 @@ const LoginPage = () => {
     }
   };
 
- 
-
-  const handleLogout = async () => {
-    setIsLoading(true);
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) {
-        toast.error("Error logging out:");
-      } else {
-        toast.success("Successfully logged out.");
-        // router.push("/"); // Redirect to the homepage or login page after logout
-      }
-    } catch (error) {
-      console.error("Unexpected error during logout:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h1 className="text-2xl font-bold mb-6 text-black">Login</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200">
+      <div className="bg-white p-10 rounded-xl shadow-lg w-full max-w-md flex flex-col gap-6">
+        <Link href="/">
+          <Image
+            src="/images/logo.png"
+            alt="logo"
+            width={700}
+            height={800}
+            quality={100}
+            className="w-full max-w-[400px] mx-auto object-contain"
+            priority
+          />
+        </Link>
+
+        <h1 className="text-xl font-bold text-gray-900 text-center">
+          Login to Get Started
+        </h1>
+
         <button
           onClick={handleGoogleSignUp}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+          className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-transform transform hover:scale-105"
           disabled={isLoading}
         >
           {isLoading ? "Loading..." : "Sign in with Google"}
-        </button>
-        <button
-          onClick={handleLogout}
-          className="w-full mt-4 bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
-          disabled={isLoading}
-        >
-          {isLoading ? "Loading..." : "Logout"}
         </button>
       </div>
     </div>

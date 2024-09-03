@@ -119,7 +119,7 @@ const TeamAdd = () => {
               </SelectTrigger>
               <SelectContent className="bg-slate-900  ">
                 {role.map((item) => (
-                  <SelectItem key={item.id} value={item.value} className="hover:bg-green-300 rounded-md cursor-pointer">
+                  <SelectItem key={item.value} value={item.title} className="hover:bg-green-300 rounded-md cursor-pointer">
                     {item.title}
                   </SelectItem>
                 ))}
