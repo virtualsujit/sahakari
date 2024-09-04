@@ -52,13 +52,9 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    console.log("Fetching user...");
-
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
     });
-
-    console.log("User fetched:", user);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -78,9 +74,9 @@ export async function GET(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { id, role } = await request.json();
+    const { email, role } = await request.json();
 
-    if (!id || !role) {
+    if (!email || !role) {
       return NextResponse.json(
         { error: "ID and role are required" },
         { status: 400 }
@@ -88,7 +84,7 @@ export async function PUT(request: Request) {
     }
 
     const updatedUser = await prisma.user.update({
-      where: { id },
+      where: { email: email.toLowerCase() },
       data: { role },
     });
 

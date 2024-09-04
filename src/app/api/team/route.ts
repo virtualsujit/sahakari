@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
 
-  const role = searchParams.get("memberType");  
+  const role = searchParams.get("memberType");
 
   try {
     const teamMembers =
@@ -56,6 +56,35 @@ export async function GET(request: Request) {
     console.error("Error fetching team members:", error);
     return NextResponse.json(
       { error: "Failed to fetch team members." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: Request) {
+  const body = await request.json();
+  const { id } = body;
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "News article ID is required." },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const deletedNewsArticle = await prisma.team.delete({
+      where: { id: id },
+    });
+
+    console.log("Deleted news article:", deletedNewsArticle);
+    console.log(id, "id");
+
+    return NextResponse.json(deletedNewsArticle);
+  } catch (error) {
+    console.error("Error deleting news article:", error);
+    return NextResponse.json(
+      { error: "Failed to delete news article." },
       { status: 500 }
     );
   }

@@ -35,7 +35,26 @@ const DashboardSidebar = () => {
       name: "News and Notices",
       icon: <Newspaper size={18} />,
       link: "/dashboard/news",
+      children: [
+        {
+          name: "Add News",
+          link: "/dashboard/news/add",
+          icon: <Newspaper size={18} />,
+        },
+        {
+          name: "View News",
+          link: "/dashboard/news/view",
+          icon: <Newspaper size={18} />,
+        },
+      ],
     },
+
+    {
+      name: "Files",
+      icon: <Newspaper size={18} />,
+      link: "/dashboard/files",
+    },
+
     {
       name: "Manage Accounts",
       icon: <Newspaper size={18} />,

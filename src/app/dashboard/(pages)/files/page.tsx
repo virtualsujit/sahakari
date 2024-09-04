@@ -9,7 +9,7 @@ import { v4 } from "uuid";
 import toast from "react-hot-toast";
 import { Cross1Icon } from "@radix-ui/react-icons";
 
-const PhotoUploadPopup = () => {
+const Files = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [uploadedPhotos, setUploadedPhotos] = useState([
@@ -27,69 +27,70 @@ const PhotoUploadPopup = () => {
     setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
-  const uploadPhotos = async () => {
+  const uploadFiles = async () => {
     setUploading(true);
     try {
       const uploadPromises = selectedFiles.map(async (file) => {
-        const fileName = `${v4()}`;
+        const fileName = `${file.name}`;
         const { data, error: uploadError } = await supabase.storage
-          .from("popup")
-          .upload(`/${fileName}`, file);
+          .from("files")
+          .upload(fileName, file);
 
         if (uploadError) {
           throw uploadError;
         }
 
         const { data: publicUrlData } = supabase.storage
-          .from("popup")
+          .from("files")
           .getPublicUrl(fileName);
 
-        const imageUrl = publicUrlData.publicUrl;
+        const fileUrl = publicUrlData.publicUrl;
 
-        const response = await fetch("/api/popup", {
+        const response = await fetch("/api/files", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ url: imageUrl }),
+          body: JSON.stringify({ url: fileUrl }),
         });
 
         if (!response.ok) {
-          throw new Error("Failed to save image data.");
+          throw new Error("Failed to save file data.");
         }
       });
 
       await Promise.all(uploadPromises);
-      toast.success("Photos uploaded successfully!");
-      setSelectedFiles([]); // Clear selected files after successful upload
-      getUploadedPhotos(); // Refresh the uploaded photos list
+      toast.success("Files uploaded successfully!");
+      setSelectedFiles([]);
+      getUploadedFiles();
     } catch (error) {
-      console.error("Error uploading photos:", error);
-      toast.error("Failed to upload photos.");
+      console.log(error);
+      toast.error("Failed to upload files.");
     } finally {
       setUploading(false);
     }
   };
 
-  const getUploadedPhotos = async () => {
+  const getUploadedFiles = async () => {
     try {
-      const response = await fetch("/api/popup");
+      const response = await fetch("/api/files");
       const data = await response.json();
       setUploadedPhotos(
-        data.map((photo: any) => ({ id: photo.id, url: photo.url }))
+        data.map((file: any) => ({ id: file.id, url: file.url }))
       );
     } catch (error) {
-      console.error("Error fetching uploaded photos:", error);
-      toast.error("Failed to fetch uploaded photos.");
+      console.error("Error fetching uploaded files:", error);
+      toast.error("Failed to fetch uploaded files.");
     }
   };
 
   useEffect(() => {
-    getUploadedPhotos();
+    getUploadedFiles();
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
+    // accept: "application/pdf",
     multiple: true,
   });
 
@@ -100,7 +101,7 @@ const PhotoUploadPopup = () => {
 
         if (fileName) {
           const { error: deleteError } = await supabase.storage
-            .from("popup")
+            .from("files")
             .remove([fileName]);
 
           if (deleteError) {
@@ -111,7 +112,7 @@ const PhotoUploadPopup = () => {
         }
       }
 
-      const response = await fetch(`/api/popup`, {
+      const response = await fetch(`/api/files`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -124,7 +125,7 @@ const PhotoUploadPopup = () => {
       }
 
       toast.success("Photo deleted successfully!");
-      getUploadedPhotos(); // Refresh the uploaded photos list
+      getUploadedFiles(); // Refresh the uploaded photos list
     } catch (error) {
       console.error("Error deleting the photo:", error);
       toast.error("Failed to delete the photo.");
@@ -152,13 +153,7 @@ const PhotoUploadPopup = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-6 gap-4">
             {selectedFiles.map((file, index) => (
               <div key={index} className="relative">
-                <Image
-                  src={URL.createObjectURL(file)}
-                  alt={`preview-${index}`}
-                  height={600}
-                  width={800}
-                  className="w-full h-24 rounded-lg object-contain"
-                />
+                <p className="text-gray-800">{file.name}</p>
                 <button
                   className="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full transition-opacity duration-300"
                   onClick={() => removeImage(index)}
@@ -172,7 +167,7 @@ const PhotoUploadPopup = () => {
 
         <button
           className="mt-8 w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-600 transition duration-300 ease-in-out transform hover:-translate-y-1"
-          onClick={uploadPhotos}
+          onClick={uploadFiles}
           disabled={uploading}
         >
           {uploading ? "Uploading..." : "Upload Photos"}
@@ -187,14 +182,7 @@ const PhotoUploadPopup = () => {
           {uploadedPhotos.map((data, index) => (
             <div key={index} className="relative group">
               <div>
-                <Image
-                  src={data.url}
-                  alt={`uploaded-${index}`}
-                  layout="responsive"
-                  width={800}
-                  height={600}
-                  className="object-cover w-full h-40 rounded-lg shadow-md"
-                />
+                <p className="text-gray-800">{data.url.split("/").pop()}</p>
               </div>
               <button
                 className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
@@ -210,4 +198,4 @@ const PhotoUploadPopup = () => {
   );
 };
 
-export default PhotoUploadPopup;
+export default Files;

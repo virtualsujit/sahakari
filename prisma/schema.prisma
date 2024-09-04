@@ -10,7 +10,12 @@ datasource db {
 
 model PopupPhoto {
   id  String @id @default(cuid())
-  url Json   @default("[]")
+  url String
+}
+
+model Files {
+  id  String @id @default(cuid())
+  url String
 }
 
 model Team {
