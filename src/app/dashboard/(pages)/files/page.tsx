@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { XCircle } from "lucide-react";
-import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
-import { v4 } from "uuid";
-import toast from "react-hot-toast";
+import { handleDelete } from "@/utils/delete-data";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { XCircle } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import toast from "react-hot-toast";
 
 const Files = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -37,7 +36,7 @@ const Files = () => {
           .upload(fileName, file);
 
         if (uploadError) {
-          throw uploadError;
+          toast.error("Error uploading file");
         }
 
         const { data: publicUrlData } = supabase.storage
@@ -55,7 +54,7 @@ const Files = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to save file data.");
+          toast.error("Failed to save file data.");
         }
       });
 
@@ -64,7 +63,6 @@ const Files = () => {
       setSelectedFiles([]);
       getUploadedFiles();
     } catch (error) {
-      console.log(error);
       toast.error("Failed to upload files.");
     } finally {
       setUploading(false);
@@ -79,7 +77,6 @@ const Files = () => {
         data.map((file: any) => ({ id: file.id, url: file.url }))
       );
     } catch (error) {
-      console.error("Error fetching uploaded files:", error);
       toast.error("Failed to fetch uploaded files.");
     }
   };
@@ -93,44 +90,6 @@ const Files = () => {
     // accept: "application/pdf",
     multiple: true,
   });
-
-  const handleDelete = async (id: string, imageUrl: string) => {
-    try {
-      if (imageUrl) {
-        const fileName = imageUrl.split("/").pop();
-
-        if (fileName) {
-          const { error: deleteError } = await supabase.storage
-            .from("files")
-            .remove([fileName]);
-
-          if (deleteError) {
-            throw deleteError;
-          }
-        } else {
-          throw new Error("Invalid image URL, unable to extract file name.");
-        }
-      }
-
-      const response = await fetch(`/api/files`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete the photo.");
-      }
-
-      toast.success("Photo deleted successfully!");
-      getUploadedFiles(); // Refresh the uploaded photos list
-    } catch (error) {
-      console.error("Error deleting the photo:", error);
-      toast.error("Failed to delete the photo.");
-    }
-  };
 
   return (
     <div className="bg-gray-100 py-12">
@@ -186,7 +145,9 @@ const Files = () => {
               </div>
               <button
                 className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
-                onClick={() => handleDelete(data.id, data.url)}
+                onClick={() =>
+                  handleDelete(data.id, data.url, "files", "/api/files")
+                }
               >
                 <Cross1Icon className="h-5 w-5" />
               </button>

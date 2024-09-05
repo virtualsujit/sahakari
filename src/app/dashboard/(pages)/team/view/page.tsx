@@ -13,7 +13,7 @@ import { role } from "@/data/role";
 import toast from "react-hot-toast";
 import { supabase } from "@/lib/supabase/client";
 import { Cross1Icon } from "@radix-ui/react-icons";
- 
+import { handleDelete } from "@/utils/delete-data";
 
 interface TeamMember {
   id: string;
@@ -30,71 +30,23 @@ const TeamList = () => {
   const [selectedRole, setSelectedRole] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleDelete = async (id: string, imageUrl: string) => {
-    if (imageUrl) {
-      const fileName = imageUrl.split("/").pop();
-
-      console.log(fileName);
-
-      if (fileName) {
-        const { data, error: deleteError } = await supabase.storage
-          .from("team")
-          .remove([fileName]);
-
-        console.log(data, deleteError, "data and error");
-
-        if (deleteError) {
-          console.error("Error deleting image:", deleteError);
-          throw deleteError;
-        }
-      } else {
-        console.error("Invalid image URL, unable to extract file name.");
-      }
-    }
-
-    try {
-      const response = await fetch(`/api/team`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      console.log(response);
-
-      if (!response.ok) {
-        toast.success("Failed to delete the article.");
-      } else {
-        // Remove the deleted member from the local state
-        setTeamMembers(teamMembers.filter((member) => member.id !== id));
-        toast.success("Team member deleted successfully.");
-      }
-    } catch (error) {
-      console.error("Error deleting the article:", error);
-    }
-  };
-
   useEffect(() => {
     const fetchTeamMembers = async () => {
       setLoading(true);
       try {
         const queryParam = selectedRole ? `?memberType=${selectedRole}` : "";
         const response = await fetch(`/api/team${queryParam}`);
-
         if (!response.ok) {
-          throw new Error("Failed to fetch team members.");
+          toast.error("Failed to fetch team members.");
         }
-
         const data = await response.json();
         setTeamMembers(data);
       } catch (err: any) {
-        console.error("Error fetching team members:", err);
+        toast.error("Error fetching team members:");
       } finally {
         setLoading(false);
       }
     };
-
     fetchTeamMembers();
   }, [selectedRole]);
 
@@ -107,18 +59,18 @@ const TeamList = () => {
           </h1>
           <div className="mt-4 sm:mt-0 w-full sm:w-64">
             <Select
-              onValueChange={(value) => setSelectedRole(value)}
+              onValueChange={(title) => setSelectedRole(title)}
               value={selectedRole}
             >
               <SelectTrigger className="w-full">
-                <SelectValue placeholder="Filter by Role" />
+                <SelectValue placeholder="Get team information by role" />
               </SelectTrigger>
               <SelectContent>
                 <SelectContent className="bg-slate-900">
                   {role.map((item) => (
                     <SelectItem
                       key={item.id}
-                      value={item.value}
+                      value={item.title}
                       className="hover:bg-green-300 rounded-md cursor-pointer"
                     >
                       {item.title}
@@ -155,7 +107,14 @@ const TeamList = () => {
                   />
                   <button
                     className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
-                    onClick={() => handleDelete(member.id, member.profilePhoto)}
+                    onClick={() =>
+                      handleDelete(
+                        member.id,
+                        member.profilePhoto,
+                        "team",
+                        "/api/team"
+                      )
+                    }
                   >
                     <Cross1Icon className="h-5 w-5" />
                   </button>

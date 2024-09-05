@@ -8,6 +8,7 @@ import { supabase } from "@/lib/supabase/client";
 import { v4 } from "uuid";
 import toast from "react-hot-toast";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { handleDelete } from "@/utils/delete-data";
 
 const PhotoUploadPopup = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -35,17 +36,13 @@ const PhotoUploadPopup = () => {
         const { data, error: uploadError } = await supabase.storage
           .from("popup")
           .upload(`/${fileName}`, file);
-
         if (uploadError) {
-          throw uploadError;
+          toast.error("Error uploading file");
         }
-
         const { data: publicUrlData } = supabase.storage
           .from("popup")
           .getPublicUrl(fileName);
-
         const imageUrl = publicUrlData.publicUrl;
-
         const response = await fetch("/api/popup", {
           method: "POST",
           headers: {
@@ -53,18 +50,15 @@ const PhotoUploadPopup = () => {
           },
           body: JSON.stringify({ url: imageUrl }),
         });
-
         if (!response.ok) {
-          throw new Error("Failed to save image data.");
+          toast.error("Failed to save image data.");
         }
       });
-
       await Promise.all(uploadPromises);
       toast.success("Photos uploaded successfully!");
-      setSelectedFiles([]); // Clear selected files after successful upload
-      getUploadedPhotos(); // Refresh the uploaded photos list
+      setSelectedFiles([]);
+      getUploadedPhotos();
     } catch (error) {
-      console.error("Error uploading photos:", error);
       toast.error("Failed to upload photos.");
     } finally {
       setUploading(false);
@@ -79,7 +73,6 @@ const PhotoUploadPopup = () => {
         data.map((photo: any) => ({ id: photo.id, url: photo.url }))
       );
     } catch (error) {
-      console.error("Error fetching uploaded photos:", error);
       toast.error("Failed to fetch uploaded photos.");
     }
   };
@@ -92,44 +85,6 @@ const PhotoUploadPopup = () => {
     onDrop,
     multiple: true,
   });
-
-  const handleDelete = async (id: string, imageUrl: string) => {
-    try {
-      if (imageUrl) {
-        const fileName = imageUrl.split("/").pop();
-
-        if (fileName) {
-          const { error: deleteError } = await supabase.storage
-            .from("popup")
-            .remove([fileName]);
-
-          if (deleteError) {
-            throw deleteError;
-          }
-        } else {
-          throw new Error("Invalid image URL, unable to extract file name.");
-        }
-      }
-
-      const response = await fetch(`/api/popup`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to delete the photo.");
-      }
-
-      toast.success("Photo deleted successfully!");
-      getUploadedPhotos(); // Refresh the uploaded photos list
-    } catch (error) {
-      console.error("Error deleting the photo:", error);
-      toast.error("Failed to delete the photo.");
-    }
-  };
 
   return (
     <div className="bg-gray-100 py-12">
@@ -198,7 +153,9 @@ const PhotoUploadPopup = () => {
               </div>
               <button
                 className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
-                onClick={() => handleDelete(data.id, data.url)}
+                onClick={() =>
+                  handleDelete(data.id, data.url, "popup", "/api/popup")
+                }
               >
                 <Cross1Icon className="h-5 w-5" />
               </button>
