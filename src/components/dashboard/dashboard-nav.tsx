@@ -26,9 +26,8 @@ const DashboardNav = () => {
   const router = useRouter();
 
   const fetchUser = async () => {
-    toast.loading("Loading user data..."); // Show loading toast
-    setLoading(true);
     try {
+      setLoading(true);
       const {
         data: { session },
       } = await supabase.auth.getSession();
@@ -47,21 +46,21 @@ const DashboardNav = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch user role.");
+        toast.error("Failed to fetch user role.");
       }
+
       const data = await response.json();
-      setUser({
+      setUser((prevUser) => ({
+        ...prevUser,
         id: user.id,
         email: user.email ?? "",
         role: data.role,
         url: user.user_metadata.avatar_url ?? "",
         name: user.user_metadata.full_name ?? "",
-      });
-      toast.dismiss(); // Dismiss loading toast
+      }));
     } catch (error) {
-      console.error("Error checking user access:", error);
-      toast.error("Error fetching user data.");
       router.push("/dashboard/sign-in");
+      toast.error("Error fetching user data.");
     } finally {
       setLoading(false);
     }
@@ -69,15 +68,15 @@ const DashboardNav = () => {
 
   const handleLogout = async () => {
     try {
+      router.push("/");
+
       const { error } = await supabase.auth.signOut();
       if (error) {
         toast.error("Error logging out.");
       } else {
         toast.success("Successfully logged out.");
-        router.push("/");
       }
     } catch (error) {
-      console.error("Unexpected error during logout:", error);
       toast.error("Unexpected error during logout.");
     }
   };
@@ -93,7 +92,7 @@ const DashboardNav = () => {
           <div className="text-lg font-semibold">Dashboard</div>
           <div>
             {" "}
-            <FaSpinner />
+            <FaSpinner className="animate-spin" />
           </div>
         </nav>
       </header>
@@ -112,7 +111,7 @@ const DashboardNav = () => {
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="   rounded-lg shadow-lg"
+            className="rounded-lg shadow-lg"
             style={{
               background: "radial-gradient(#32488A, #1d2e61)",
             }}

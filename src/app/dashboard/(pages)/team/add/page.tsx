@@ -9,30 +9,25 @@ import {
 import { role } from "@/data/role";
 import { supabase } from "@/lib/supabase/client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { v4 } from "uuid";
 
 const TeamAdd = () => {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [loading, setLoading] = useState(false);
 
-  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, files } = e.target;
-
-    // Initialize formData if it's null
     const currentFormData = formData || new FormData();
-
     if (files) {
       currentFormData.set(name, files[0]);
     } else {
       currentFormData.set(name, value);
     }
-
-    setFormData(currentFormData); // Set the updated form data
+    setFormData(currentFormData);
   };
 
   const handleSelectChange = (name: string, value: string) => {
-    // Initialize formData if it's null
     const currentFormData = formData || new FormData();
     currentFormData.set(name, value);
     setFormData(currentFormData); // Set the updated form data
@@ -46,21 +41,15 @@ const TeamAdd = () => {
       const currentFormData = formData || new FormData();
 
       const file = currentFormData.get("profilePhoto") as File | null;
-
       let imageUrl = "";
-
       if (file) {
         const fileName = `${v4()}-${file.name}`;
         const { data, error: uploadError } = await supabase.storage
           .from("Team")
           .upload(fileName, file);
-
         if (uploadError) {
-          console.log(uploadError, "Error uploading file");
-          throw uploadError;
+          toast.error("Error uploading file");
         }
-        console.log("Uploaded file data:", data);
-
         const { data: publicUrlData } = supabase.storage
           .from("Team")
           .getPublicUrl(fileName);
@@ -92,10 +81,11 @@ const TeamAdd = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to save team member data.");
+        toast.error("Failed to save team member data.");
       }
+      toast.success("Team member added successfully!");
     } catch (error) {
-      console.error("Error saving team member:", error);
+      toast.error("Error saving team member");
     } finally {
       setLoading(false);
     }
@@ -119,7 +109,11 @@ const TeamAdd = () => {
               </SelectTrigger>
               <SelectContent className="bg-slate-900  ">
                 {role.map((item) => (
-                  <SelectItem key={item.value} value={item.title} className="hover:bg-green-300 rounded-md cursor-pointer">
+                  <SelectItem
+                    key={item.value}
+                    value={item.title}
+                    className="hover:bg-green-300 rounded-md cursor-pointer"
+                  >
                     {item.title}
                   </SelectItem>
                 ))}
@@ -185,7 +179,7 @@ const TeamAdd = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white p-2 px-4 rounded hover:bg-blue-700 transition"
             disabled={loading}
           >
             {loading ? "Adding..." : "Add Member"}

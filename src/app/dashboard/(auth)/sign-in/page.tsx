@@ -22,7 +22,6 @@ const LoginPage = () => {
       if (error) {
         toast.error("Error signing up with Google:");
       } else {
-        toast.success("Successfully signed up with Google.");
         router.push("/dashboard");
       }
     } catch (error) {

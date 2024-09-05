@@ -3,6 +3,7 @@
 import { supabase } from "@/lib/supabase/client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { v4 } from "uuid";
 
 interface FormData {
@@ -27,6 +28,7 @@ const NewsPost: React.FC = () => {
     date: "",
     thumbnail: null,
   });
+  
   const [loading, setLoading] = useState(false);
   const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([]);
   const [fetchLoading, setFetchLoading] = useState<boolean>(false);
@@ -54,11 +56,9 @@ const NewsPost: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const { title, content, date, thumbnail } = formData;
       let imageUrl = "";
-
       if (thumbnail) {
         const fileName = `${v4()}`;
         const { data, error: uploadError } = await supabase.storage
@@ -66,14 +66,11 @@ const NewsPost: React.FC = () => {
           .upload(fileName, thumbnail);
 
         if (uploadError) {
-          console.error("Error uploading file:", uploadError);
-          throw uploadError;
+          toast.error("Error uploading file:");
         }
-
         const { data: publicUrlData } = supabase.storage
           .from("news")
           .getPublicUrl(fileName);
-
         imageUrl = publicUrlData.publicUrl;
       }
 
@@ -93,10 +90,10 @@ const NewsPost: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to save news data.");
+        toast.error("Failed to save news data.");
       }
 
-      alert("News added successfully!");
+      toast.success("News article added successfully!");
 
       setFormData({
         title: "",
@@ -107,7 +104,7 @@ const NewsPost: React.FC = () => {
 
       fetchNews();
     } catch (error) {
-      console.error("Error saving news:", error);
+      toast.error("Error saving news");
     } finally {
       setLoading(false);
     }
@@ -119,13 +116,13 @@ const NewsPost: React.FC = () => {
       const response = await fetch("/api/news");
 
       if (!response.ok) {
-        throw new Error("Failed to fetch news articles.");
+        toast.error("Failed to fetch news articles");
       }
 
       const data: NewsArticle[] = await response.json();
       setNewsArticles(data);
     } catch (error) {
-      console.error("Error fetching news articles:", error);
+      toast.error("Error fetching news articles");
     } finally {
       setFetchLoading(false);
     }

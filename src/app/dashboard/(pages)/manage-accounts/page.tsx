@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { supabase } from "@/lib/supabase/client";
-import { role } from "@/data/role";
 import {
   Select,
   SelectContent,
@@ -12,6 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { checkUserRole } from "@/utils/check-role";
+import { fetchSession } from "@/utils/fetch-session";
 
 interface User {
   id: string;
@@ -19,11 +20,15 @@ interface User {
   role: string;
 }
 
+const roles = [
+  { id: 1, role: "super admin" },
+  { id: 2, role: "admin" },
+  { id: 3, role: "user" },
+];
+
 const UserEditor = () => {
   const [email, setEmail] = useState("");
-  const [user, setUser] = useState<User | null>(null);
   const [newRole, setNewRole] = useState("");
-  const [fLoading, setFloading] = useState(false);
   const [uLoading, setUloading] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [admins, setAdmins] = useState<User[]>([]);
@@ -31,9 +36,8 @@ const UserEditor = () => {
   const [hasAccess, setHasAccess] = useState(false);
 
   const router = useRouter();
-  const handleFetchUsers = async () => {
-    setFloading(true);
 
+  const handleFetchUsers = async () => {
     try {
       const response = await fetch(`/api/alluser`, {
         method: "GET",
@@ -48,7 +52,6 @@ const UserEditor = () => {
 
       const data = await response.json();
 
-      console.log(data);
       const adminsList = data.filter((user: User) => user.role === "admin");
       const usersList = data.filter((user: User) => user.role === "user");
       const superAdmin = data.find((user: User) => user.role === "super admin");
@@ -61,17 +64,13 @@ const UserEditor = () => {
       toast.error(err.message || "Failed to fetch users.");
       setAdmins([]);
       setUsers([]);
-    } finally {
-      setFloading(false);
     }
   };
 
   useEffect(() => {
     const checkAccess = async () => {
       try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+        const session = await fetchSession();
 
         if (!session) {
           router.push("/dashboard/sign-in");
@@ -79,19 +78,7 @@ const UserEditor = () => {
         }
 
         const { user } = session;
-        const response = await fetch(`/api/users?email=${user.email}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch user role.");
-        }
-
-        const data = await response.json();
-        const role = data.role;
+        const role = await checkUserRole(user);
 
         if (role === "super admin") {
           setHasAccess(true);
@@ -101,8 +88,6 @@ const UserEditor = () => {
       } catch (error) {
         console.error("Error checking user access:", error);
         router.push("/dashboard/sign-in");
-      } finally {
-        setFloading(false);
       }
     };
 
@@ -119,11 +104,7 @@ const UserEditor = () => {
 
   const handleUpdateRole = async () => {
     if (!email || !newRole) return;
-    console.log("email", email);
-    console.log("newRole", newRole);
-
     setUloading(true);
-
     try {
       const response = await fetch(`/api/users`, {
         method: "PUT",
@@ -140,8 +121,8 @@ const UserEditor = () => {
         throw new Error("Error updating user role.");
       }
 
-      const data = await response.json();
-      setUser(data);
+      await response.json();
+
       handleFetchUsers();
       toast.success("User role updated successfully!");
     } catch (err: any) {
@@ -151,24 +132,9 @@ const UserEditor = () => {
     }
   };
 
-  const role = [
-    {
-      id: 1,
-      role: "super admin",
-    },
-    {
-      id: 2,
-      role: "admin",
-    },
-    {
-      id: 3,
-      role: "user",
-    },
-  ];
-
   return (
     <div>
-      <div className="max-w-4xl mx-auto p-4  ">
+      <div className="max-w-4xl mx-auto p-4">
         <h2 className="text-xl font-semibold mb-4">Admins and Super Admin</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
@@ -273,7 +239,7 @@ const UserEditor = () => {
                 className="w-full p-2 border border-gray-300 rounded"
               />
 
-              <div className="mt-4  w-full  ">
+              <div className="mt-4 w-full">
                 <Select
                   onValueChange={(value) => setNewRole(value)}
                   value={newRole}
@@ -283,7 +249,7 @@ const UserEditor = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectContent className="bg-slate-900">
-                      {role.map((item) => (
+                      {roles.map((item) => (
                         <SelectItem
                           key={item.id}
                           value={item.role}
@@ -297,8 +263,9 @@ const UserEditor = () => {
                 </Select>
               </div>
               <button
+                disabled={uLoading}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
                 onClick={handleUpdateRole}
-                className="mt-2 w-full bg-green-500 text-white py-2 px-4 rounded"
               >
                 {uLoading ? "Updating..." : "Update Role"}
               </button>
