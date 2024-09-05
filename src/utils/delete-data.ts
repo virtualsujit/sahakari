@@ -17,14 +17,12 @@ export const handleDelete = async (
         .from(bucket)
         .remove([fileName]);
 
-      console.log(data, deleteError, "data and error");
-
       if (deleteError) {
-        console.error("Error deleting image:", deleteError);
+        toast.error("Error deleting image ");
         throw deleteError;
       }
     } else {
-      console.error("Invalid image URL, unable to extract file name.");
+      toast.error("Invalid image URL, unable to extract file name.");
     }
   }
 
@@ -37,12 +35,12 @@ export const handleDelete = async (
       body: JSON.stringify({ id }),
     });
 
-    console.log(response);
-
+    toast.success(" deleted successfully.");
     if (!response.ok) {
-      toast.success("Failed to delete the article.");
+      toast.error("Failed to delete the article.");
     }
   } catch (error) {
-    console.error("Error deleting the article:", error);
+    console.log(error);
+    toast.error(`Error deleting the article ${error}`);
   }
 };

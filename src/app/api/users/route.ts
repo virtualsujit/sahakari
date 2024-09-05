@@ -1,37 +1,40 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'], // Logs Prisma queries for debugging
+});
 
 export async function POST(request: Request) {
   try {
     const { id, email, role } = await request.json();
 
+    // Check for missing fields
     if (!id || !email || !role) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
+
+    // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { id },
     });
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "User already exists" }, { status: 400 });
     }
 
+    // Create new user
     const newUser = await prisma.user.create({
       data: {
         id,
-        email,
+        email: email.toLowerCase(),
         role,
       },
     });
 
     return NextResponse.json(newUser, { status: 201 });
-  } catch (error) {
-    console.error("Error creating user:", error);
+  } catch (error: any) {
+    console.error("Error creating user:", error.message || error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -46,12 +49,11 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get("email");
 
-    console.log("Email received:", email);
-
     if (!email) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
+    // Fetch user by email
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
     });
@@ -61,8 +63,8 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(user, { status: 200 });
-  } catch (error) {
-    console.error("Error fetching user:", error);
+  } catch (error: any) {
+    console.error("Error fetching user:", error.message || error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -78,19 +80,20 @@ export async function PUT(request: Request) {
 
     if (!email || !role) {
       return NextResponse.json(
-        { error: "ID and role are required" },
+        { error: "Email and role are required" },
         { status: 400 }
       );
     }
 
+    // Update user role
     const updatedUser = await prisma.user.update({
       where: { email: email.toLowerCase() },
       data: { role },
     });
 
     return NextResponse.json(updatedUser, { status: 200 });
-  } catch (error) {
-    console.error("Error updating user role:", error);
+  } catch (error: any) {
+    console.error("Error updating user role:", error.message || error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

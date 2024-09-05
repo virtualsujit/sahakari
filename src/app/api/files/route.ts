@@ -28,7 +28,7 @@ export async function GET() {
   try {
     const files = await prisma.files.findMany();
 
-    console.log(files ,"fielse jdfasfdhasjfhasdfhaksdfhkasdhfksdf");
+    console.log(files, "fielse jdfasfdhasjfhasdfhaksdfhkasdhfksdf");
     return NextResponse.json(files);
   } catch (error) {
     console.error("Error fetching files:", error);
@@ -51,16 +51,14 @@ export async function DELETE(request: Request) {
       );
     }
 
+    console.log(id, "id");
+
     const deletedFile = await prisma.files.delete({
       where: { id },
     });
 
     return NextResponse.json(deletedFile);
   } catch (error) {
-    console.error("Error deleting file:", error);
-    return NextResponse.json(
-      { error: "Failed to delete file." },
-      { status: 500 }
-    );
+    return NextResponse.json(error);
   }
 }
