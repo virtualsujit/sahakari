@@ -1,26 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
-import { Navbar } from "@/components/layout/nav-footer";
-import BottomBar from "@/components/nav-bar/bottom-bar";
-import toast from "react-hot-toast";
-import { fetchSession } from "@/utils/fetch-session";
-import { checkUserRole } from "@/utils/check-role";
-import Topbar from "@/components/nav-bar/top-bar";
 import NoticeBar from "@/components/nav-bar/notice-bar";
+import { supabase } from "@/lib/supabase/client";
+import { checkUserRole } from "@/utils/check-role";
+import { fetchSession } from "@/utils/fetch-session";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const Page = () => {
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
 
   const router = useRouter();
-
-  // Handle the redirection based on the user's role
+ 
   const handleRedirect = async (role: string | null) => {
     if (role === "admin" || role === "super admin") {
-      router.replace("/dashboard/team/view"); // use replace to avoid adding a new entry in history
+      router.replace("/dashboard/team/view"); 
     } else {
       setShowDialog(true);
     }
@@ -37,7 +33,6 @@ const Page = () => {
 
       const { user } = session;
 
-      // Send user data only if not already present in the database
       const { data } = await supabase
         .from("users")
         .select("id")
@@ -48,10 +43,11 @@ const Page = () => {
           .from("users")
           .insert([{ id: user.id, email: user.email, role: "user" }]);
       }
+      console.log(data, "data");
 
       const role = await checkUserRole(user);
 
-      console.log(role, "role");  
+      console.log(role, "role");
       handleRedirect(role);
     } catch (error) {
       toast.error("Error during initialization");

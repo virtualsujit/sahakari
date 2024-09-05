@@ -24,8 +24,8 @@ const LoginPage = () => {
       } else {
         router.push("/dashboard");
       }
-    } catch (error) {
-      console.error("Unexpected error:", error);
+    } catch (error:any) {
+      toast.error("Unexpected error:", error.message);
     } finally {
       setIsLoading(false);
     }

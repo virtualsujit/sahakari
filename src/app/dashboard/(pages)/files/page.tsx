@@ -2,7 +2,6 @@
 
 import { supabase } from "@/lib/supabase/client";
 import { handleDelete } from "@/utils/delete-data";
-import { Cross1Icon } from "@radix-ui/react-icons";
 import { XCircle } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -95,7 +94,7 @@ const Files = () => {
     <div className="bg-gray-100 py-12">
       <div className="bg-white shadow-lg mx-4 p-8 rounded-xl relative">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Upload Pop-Up Photos
+          Upload Pop-Up Files
         </h2>
 
         <div
@@ -104,20 +103,23 @@ const Files = () => {
         >
           <input {...getInputProps()} />
           <p className="text-blue-700 font-medium">
-            Drag & drop photos here, or click to select files
+            Drag & drop Files here, or click to select files
           </p>
         </div>
 
         {selectedFiles.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mt-6 gap-4">
             {selectedFiles.map((file, index) => (
-              <div key={index} className="relative">
-                <p className="text-gray-800">{file.name}</p>
+              <div
+                key={index}
+                className="relative border-2 border-black rounded-md  p-2 "
+              >
+                <p className="text-gray-800"> {file.name}</p>
                 <button
-                  className="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full transition-opacity duration-300"
+                  className="absolute -top-1 -right-1 bg-red-600 text-white p-1 rounded-full transition-opacity duration-300"
                   onClick={() => removeImage(index)}
                 >
-                  <XCircle size={18} />
+                  <XCircle size={15} />
                 </button>
               </div>
             ))}
@@ -139,17 +141,20 @@ const Files = () => {
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {uploadedPhotos.map((data, index) => (
-            <div key={index} className="relative group">
+            <div
+              key={index}
+              className="relative group border-2 p-2 border-black rounded-md "
+            >
               <div>
                 <p className="text-gray-800">{data.url.split("/").pop()}</p>
               </div>
               <button
-                className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"
+                className="absolute -top-1 -right-1 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition"
                 onClick={() =>
                   handleDelete(data.id, data.url, "files", "/api/files")
                 }
               >
-                <Cross1Icon className="h-5 w-5" />
+                <XCircle size={15} />
               </button>
             </div>
           ))}
