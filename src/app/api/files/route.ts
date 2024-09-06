@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "@/utils/prisma"; 
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { url } = body;
+
+    // Validate required fields
+    if (!url) {
+      return NextResponse.json(
+        { error: "URL is required." },
+        { status: 400 }
+      );
+    }
 
     const newFile = await prisma.files.create({
       data: {
@@ -14,9 +20,9 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json(newFile);
-  } catch (error) {
-    console.error("Error creating file record:", error);
+    return NextResponse.json(newFile, { status: 201 });
+  } catch (error: any) {
+    console.error("Error creating file record:", error.message || error);
     return NextResponse.json(
       { error: "Failed to create file record." },
       { status: 500 }
@@ -28,10 +34,9 @@ export async function GET() {
   try {
     const files = await prisma.files.findMany();
 
-    console.log(files, "fielse jdfasfdhasjfhasdfhaksdfhkasdhfksdf");
-    return NextResponse.json(files);
-  } catch (error) {
-    console.error("Error fetching files:", error);
+    return NextResponse.json(files, { status: 200 });
+  } catch (error: any) {
+    console.error("Error fetching files:", error.message || error);
     return NextResponse.json(
       { error: "Failed to fetch files." },
       { status: 500 }
@@ -44,6 +49,7 @@ export async function DELETE(request: Request) {
     const body = await request.json();
     const { id } = body;
 
+    // Validate required fields
     if (!id) {
       return NextResponse.json(
         { error: "File ID is required." },
@@ -51,14 +57,16 @@ export async function DELETE(request: Request) {
       );
     }
 
-    console.log(id, "id");
-
     const deletedFile = await prisma.files.delete({
       where: { id },
     });
 
-    return NextResponse.json(deletedFile);
-  } catch (error) {
-    return NextResponse.json(error);
+    return NextResponse.json(deletedFile, { status: 200 });
+  } catch (error: any) {
+    console.error("Error deleting file record:", error.message || error);
+    return NextResponse.json(
+      { error: "Failed to delete file record." },
+      { status: 500 }
+    );
   }
 }

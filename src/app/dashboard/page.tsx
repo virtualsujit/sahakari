@@ -13,10 +13,10 @@ const Page = () => {
   const [showDialog, setShowDialog] = useState(false);
 
   const router = useRouter();
- 
+
   const handleRedirect = async (role: string | null) => {
     if (role === "admin" || role === "super admin") {
-      router.replace("/dashboard/team/view"); 
+      router.replace("/dashboard/team/view");
     } else {
       setShowDialog(true);
     }
@@ -38,14 +38,19 @@ const Page = () => {
         .select("id")
         .eq("id", user.id)
         .single();
+
       if (!data) {
         await supabase
           .from("users")
           .insert([{ id: user.id, email: user.email, role: "user" }]);
       }
-      console.log(data, "data");
 
-      const role = await checkUserRole(user);
+      if (!user.email) {
+        router.replace("/dashboard/sign-in");
+        toast.error("User email not found.");
+        return;
+      }
+      const role = await checkUserRole(user.email);
 
       console.log(role, "role");
       handleRedirect(role);

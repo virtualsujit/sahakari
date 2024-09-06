@@ -1,29 +1,25 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'], // Logs Prisma queries for debugging
-});
+import prisma from "@/utils/prisma";
 
 export async function POST(request: Request) {
   try {
     const { id, email, role } = await request.json();
 
-    // Check for missing fields
     if (!id || !email || !role) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
     }
 
-    // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { id },
     });
 
     if (existingUser) {
-      return NextResponse.json({ error: "User already exists" }, { status: 400 });
+      return NextResponse.json(
+        { error: "User already exists" },
+        { status: 400 }
+      );
     }
 
-    // Create new user
     const newUser = await prisma.user.create({
       data: {
         id,
@@ -39,8 +35,6 @@ export async function POST(request: Request) {
       { error: "Internal server error" },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -53,7 +47,6 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    // Fetch user by email
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
     });
@@ -69,8 +62,6 @@ export async function GET(request: Request) {
       { error: "Internal server error" },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -85,7 +76,6 @@ export async function PUT(request: Request) {
       );
     }
 
-    // Update user role
     const updatedUser = await prisma.user.update({
       where: { email: email.toLowerCase() },
       data: { role },
@@ -98,7 +88,5 @@ export async function PUT(request: Request) {
       { error: "Internal server error" },
       { status: 500 }
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }

@@ -1,23 +1,29 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "@/utils/prisma";  
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { title, content, date, thumbnail } = body;
 
+    // Validate required fields
+    if (!title || !content || !date) {
+      return NextResponse.json(
+        { error: "Title, content, and date are required." },
+        { status: 400 }
+      );
+    }
+
     const newNewsArticle = await prisma.news.create({
       data: {
         title,
         content,
-        date: date,
+        date: date, // Ensure date is in Date format
         imageUrl: thumbnail,
       },
     });
 
-    return NextResponse.json(newNewsArticle);
+    return NextResponse.json(newNewsArticle, { status: 201 });
   } catch (error) {
     console.error("Error creating news article:", error);
     return NextResponse.json(
@@ -40,7 +46,7 @@ export async function GET(request: Request) {
         })
       : await prisma.news.findMany();
 
-    return NextResponse.json(newsArticles);
+    return NextResponse.json(newsArticles, { status: 200 });
   } catch (error) {
     console.error("Error fetching news articles:", error);
     return NextResponse.json(
@@ -55,8 +61,15 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { id, title, content, date, thumbnail } = body;
 
+    if (!id || !title || !content || !date) {
+      return NextResponse.json(
+        { error: "ID, title, content, and date are required." },
+        { status: 400 }
+      );
+    }
+
     const updatedNewsArticle = await prisma.news.update({
-      where: { id: id },
+      where: { id: parseInt(id) },
       data: {
         title,
         content,
@@ -65,7 +78,7 @@ export async function PUT(request: Request) {
       },
     });
 
-    return NextResponse.json(updatedNewsArticle);
+    return NextResponse.json(updatedNewsArticle, { status: 200 });
   } catch (error) {
     console.error("Error updating news article:", error);
     return NextResponse.json(
@@ -76,25 +89,22 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const body = await request.json();
-  const { id } = body;
-
-  if (!id) {
-    return NextResponse.json(
-      { error: "News article ID is required." },
-      { status: 400 }
-    );
-  }
-
   try {
+    const body = await request.json();
+    const { id } = body;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "News article ID is required." },
+        { status: 400 }
+      );
+    }
+
     const deletedNewsArticle = await prisma.news.delete({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id) }, // Ensure id is a number
     });
 
-    console.log("Deleted news article:", deletedNewsArticle);
-    console.log(id,'id');
-
-    return NextResponse.json(deletedNewsArticle);
+    return NextResponse.json(deletedNewsArticle, { status: 200 });
   } catch (error) {
     console.error("Error deleting news article:", error);
     return NextResponse.json(

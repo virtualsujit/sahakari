@@ -1,10 +1,5 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-// Instantiate Prisma Client once to reuse across requests
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'], // Enable logging for debugging
-});
+import prisma from "@/utils/prisma"; // Ensure this path is correct for your setup
 
 export async function POST(request: Request) {
   try {
@@ -18,7 +13,6 @@ export async function POST(request: Request) {
       email,
     } = body;
 
-    // Basic input validation
     if (!fullName || !email || !position || !memberType) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -26,7 +20,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create new team member
     const newTeamMember = await prisma.team.create({
       data: {
         fullName,
@@ -34,7 +27,7 @@ export async function POST(request: Request) {
         memberType,
         profilePhoto,
         contactNumber,
-        email: email.toLowerCase(), // Normalize email
+        email: email.toLowerCase(),
       },
     });
 
@@ -51,13 +44,12 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const role = searchParams.get("memberType");
+    const memberType = searchParams.get("memberType");
 
-    // Fetch team members based on role filter, or fetch all if no role is provided
     const teamMembers =
-      role && role !== "all"
+      memberType && memberType !== "all"
         ? await prisma.team.findMany({
-            where: { memberType: role },
+            where: { memberType },
           })
         : await prisma.team.findMany();
 
@@ -76,7 +68,6 @@ export async function DELETE(request: Request) {
     const body = await request.json();
     const { id } = body;
 
-    // Validate ID presence
     if (!id) {
       return NextResponse.json(
         { error: "Team member ID is required." },
@@ -84,9 +75,8 @@ export async function DELETE(request: Request) {
       );
     }
 
-    // Delete the team member by ID
     const deletedTeamMember = await prisma.team.delete({
-      where: { id: id },
+      where: { id },
     });
 
     return NextResponse.json(deletedTeamMember, { status: 200 });

@@ -1,19 +1,18 @@
 import toast from "react-hot-toast";
 
-export const checkUserRole = async (user: any) => {
+export const checkUserRole = async (email:string) => {
   try {
-    const response = await fetch(`/api/users?email=${user.email}`, {
+    const response = await fetch(`/api/users?email=${email}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    console.log(response, "response");
-
     if (!response.ok) toast.error("User not found or an error occurred.");
     const data = await response.json();
-    console.log(data, "user data");
+
+    console.log(data, "data");
 
     return data.role;
   } catch (err: any) {

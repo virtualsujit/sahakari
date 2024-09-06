@@ -50,6 +50,9 @@ const DashboardNav = () => {
       }
 
       const data = await response.json();
+
+      console.log(data);  
+      
       setUser((prevUser) => ({
         ...prevUser,
         id: user.id,
