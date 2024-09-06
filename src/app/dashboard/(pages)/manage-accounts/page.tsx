@@ -78,7 +78,13 @@ const UserEditor = () => {
         }
 
         const { user } = session;
-        const role = await checkUserRole(user);
+        if (!user.email) {
+          router.replace("/dashboard/sign-in");
+          toast.error("User email not found.");
+          return;
+        }
+
+        const role = await checkUserRole(user.email);
 
         if (role === "super admin") {
           setHasAccess(true);
