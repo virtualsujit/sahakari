@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/utils/prisma"; 
+import prisma from "@/utils/prisma";
 
 export async function POST(request: Request) {
   try {
@@ -8,10 +8,7 @@ export async function POST(request: Request) {
 
     // Validate required fields
     if (!url) {
-      return NextResponse.json(
-        { error: "URL is required." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "URL is required." }, { status: 400 });
     }
 
     const newFile = await prisma.files.create({

@@ -37,9 +37,9 @@ model News {
 }
 
 model User {
-  id    String @unique
-  email String @unique
+  id    String @unique @id 
+  email String 
   role  String @db.VarChar(100)
 
-  @@id([id, email])
+   
 }

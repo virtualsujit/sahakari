@@ -11,13 +11,13 @@ import toast from "react-hot-toast";
 const Page = () => {
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
-
   const router = useRouter();
 
   const handleRedirect = async (role: string | null) => {
     if (role === "admin" || role === "super admin") {
       router.replace("/dashboard/team/view");
     } else {
+      toast.error("You are not an admin.");
       setShowDialog(true);
     }
   };
@@ -25,7 +25,6 @@ const Page = () => {
   const initialize = async () => {
     try {
       const session = await fetchSession();
-
       if (!session) {
         router.replace("/dashboard/sign-in");
         return;
@@ -33,27 +32,32 @@ const Page = () => {
 
       const { user } = session;
 
-      const { data } = await supabase
-        .from("users")
-        .select("id")
-        .eq("id", user.id)
-        .single();
+      try {
+        const response = await fetch(`/api/users`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: user.id,
+            email: user.email,
+            role: "user",
+          }),
+        });
 
-      if (!data) {
-        await supabase
-          .from("users")
-          .insert([{ id: user.id, email: user.email, role: "user" }]);
+        toast.success("User created successfully");
+      } catch (error) {
+        console.error("Error creating user:", error);
+        toast.error("Error creating user.");
       }
 
-      if (!user.email) {
-        router.replace("/dashboard/sign-in");
-        toast.error("User email not found.");
-        return;
+      try {
+        const role = await checkUserRole(user.id);
+        handleRedirect(role);
+      } catch (error) {
+        console.error("Error checking user role:", error);
+        toast.error("Error fetching user role.");
       }
-      const role = await checkUserRole(user.email);
-
-      console.log(role, "role");
-      handleRedirect(role);
     } catch (error) {
       toast.error("Error during initialization");
     } finally {
@@ -113,5 +117,4 @@ const Page = () => {
     </div>
   );
 };
-
 export default Page;

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
+
 const LoginPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +16,7 @@ const LoginPage = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${location.origin}/api/auth/callback`,
+          redirectTo: `${window?.location?.origin}/api/auth/callback`,
         },
       });
 
@@ -24,7 +25,7 @@ const LoginPage = () => {
       } else {
         router.push("/dashboard");
       }
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error("Unexpected error:", error.message);
     } finally {
       setIsLoading(false);

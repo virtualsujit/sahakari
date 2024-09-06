@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
@@ -14,10 +14,6 @@ export default function RootLayout({
   const [hasAccess, setHasAccess] = useState(false);
   const router = useRouter();
 
-  
-
-   
-
   useEffect(() => {
     const checkAccess = async () => {
       try {
@@ -31,7 +27,7 @@ export default function RootLayout({
         }
 
         const { user } = session;
-        const response = await fetch(`/api/users?email=${user.email}`, {
+        const response = await fetch(`/api/users?id=${user.id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -66,16 +62,16 @@ export default function RootLayout({
   }
 
   if (!hasAccess) {
-    return null; // or show a loading state if preferred
+    return null; // or show an alternative loading state
   }
 
   return (
     <section>
       <DashboardNav />
       <div className="flex max-w-[1400px] mx-auto">
-       <div className="hidden sm:block">
-       <DashboardSidebar />
-       </div>
+        <div className="hidden sm:block">
+          <DashboardSidebar />
+        </div>
         <div className="m-2 bg-gray-100 w-full min-h-screen text-black rounded-md">
           {children}
         </div>

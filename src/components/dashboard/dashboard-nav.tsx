@@ -1,4 +1,7 @@
 "use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,9 +10,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { supabase } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaSpinner } from "react-icons/fa";
@@ -38,7 +38,8 @@ const DashboardNav = () => {
       }
 
       const { user } = session;
-      const response = await fetch(`/api/users?email=${user.email}`, {
+
+      const response = await fetch(`/api/users?id=${user.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -47,23 +48,21 @@ const DashboardNav = () => {
 
       if (!response.ok) {
         toast.error("Failed to fetch user role.");
+        return;
       }
 
       const data = await response.json();
 
-      console.log(data);  
-      
-      setUser((prevUser) => ({
-        ...prevUser,
+      setUser({
         id: user.id,
         email: user.email ?? "",
         role: data.role,
-        url: user.user_metadata.avatar_url ?? "",
-        name: user.user_metadata.full_name ?? "",
-      }));
+        url: user.user_metadata?.avatar_url ?? "",
+        name: user.user_metadata?.full_name ?? "",
+      });
     } catch (error) {
-      router.push("/dashboard/sign-in");
       toast.error("Error fetching user data.");
+      router.push("/dashboard/sign-in");
     } finally {
       setLoading(false);
     }
@@ -71,13 +70,12 @@ const DashboardNav = () => {
 
   const handleLogout = async () => {
     try {
-      router.push("/");
-
       const { error } = await supabase.auth.signOut();
       if (error) {
         toast.error("Error logging out.");
       } else {
         toast.success("Successfully logged out.");
+        router.push("/");
       }
     } catch (error) {
       toast.error("Unexpected error during logout.");
@@ -94,7 +92,6 @@ const DashboardNav = () => {
         <nav className="flex items-center justify-between px-4 py-2 text-white max-w-[1400px] mx-auto">
           <div className="text-lg font-semibold">Dashboard</div>
           <div>
-            {" "}
             <FaSpinner className="animate-spin" />
           </div>
         </nav>
@@ -110,7 +107,7 @@ const DashboardNav = () => {
           <DropdownMenuTrigger>
             <Avatar>
               <AvatarImage src={user.url} alt={user.name} />
-              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{user.name?.charAt(0)}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -122,15 +119,13 @@ const DashboardNav = () => {
             <DropdownMenuLabel className="text-sm font-semibold text-gray-300">
               Name: {user.name}
             </DropdownMenuLabel>
-
             <DropdownMenuItem className="text-gray-200">
               Email: {user.email}
             </DropdownMenuItem>
-
             <DropdownMenuItem className="text-gray-200">
               Role: {user.role}
             </DropdownMenuItem>
-
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <button
                 onClick={handleLogout}

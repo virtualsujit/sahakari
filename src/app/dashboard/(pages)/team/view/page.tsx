@@ -92,7 +92,7 @@ const TeamList = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {teamMembers.map((member) => (
+            {teamMembers?.map((member) => (
               <div
                 key={member.id}
                 className="relative bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"

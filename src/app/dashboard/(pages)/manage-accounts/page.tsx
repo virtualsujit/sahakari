@@ -34,6 +34,7 @@ const UserEditor = () => {
   const [admins, setAdmins] = useState<User[]>([]);
   const [superAdmin, setSuperAdmin] = useState<User | null>(null);
   const [hasAccess, setHasAccess] = useState(false);
+  const [allUser, setAllUser] = useState<User[]>([]);
 
   const router = useRouter();
 
@@ -51,14 +52,7 @@ const UserEditor = () => {
       }
 
       const data = await response.json();
-
-      const adminsList = data.filter((user: User) => user.role === "admin");
-      const usersList = data.filter((user: User) => user.role === "user");
-      const superAdmin = data.find((user: User) => user.role === "super admin");
-
-      setSuperAdmin(superAdmin || null);
-      setAdmins(adminsList);
-      setUsers(usersList);
+      setAllUser(data);
       toast.success("Users fetched successfully!");
     } catch (err: any) {
       toast.error(err.message || "Failed to fetch users.");
@@ -78,13 +72,8 @@ const UserEditor = () => {
         }
 
         const { user } = session;
-        if (!user.email) {
-          router.replace("/dashboard/sign-in");
-          toast.error("User email not found.");
-          return;
-        }
 
-        const role = await checkUserRole(user.email);
+        const role = await checkUserRole(user.id);
 
         if (role === "super admin") {
           setHasAccess(true);
@@ -104,13 +93,37 @@ const UserEditor = () => {
     handleFetchUsers();
   }, []);
 
+  useEffect(() => {
+    const superAdmin = allUser.find((user) => user.role === "super admin") || null;
+    const admins = allUser.filter((user) => user.role === "admin");
+    const users = allUser.filter((user) => user.role === "user");
+    setSuperAdmin(superAdmin);
+    setAdmins(admins);
+    setUsers(users);
+  }, [allUser]);
+
   if (!hasAccess) {
     return null;
   }
 
   const handleUpdateRole = async () => {
-    if (!email || !newRole) return;
+    if (!email || !newRole) {
+      toast.error("Please enter a valid email and select a role.");
+      return;
+    }
+
     setUloading(true);
+
+    const user = allUser.find((user) => user.email.trim() === email.trim());
+
+    if (!user) {
+      toast.error("User not found.");
+      setUloading(false);
+      return;
+    }
+
+    const userId = user.id;
+
     try {
       const response = await fetch(`/api/users`, {
         method: "PUT",
@@ -118,7 +131,7 @@ const UserEditor = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email,
+          id: userId,
           role: newRole,
         }),
       });
@@ -128,9 +141,10 @@ const UserEditor = () => {
       }
 
       await response.json();
-
       handleFetchUsers();
       toast.success("User role updated successfully!");
+      setEmail("");
+      setNewRole("");
     } catch (err: any) {
       toast.error(err.message || "Error updating user role.");
     } finally {
@@ -255,23 +269,22 @@ const UserEditor = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectContent className="bg-slate-900">
-                      {roles.map((item) => (
-                        <SelectItem
-                          key={item.id}
-                          value={item.role}
-                          className="hover:bg-green-300 rounded-md cursor-pointer"
-                        >
-                          {item.role}
+                      {roles.map((role) => (
+                        <SelectItem key={role.id} value={role.role}>
+                          {role.role}
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </SelectContent>
                 </Select>
               </div>
+
               <button
-                disabled={uLoading}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
                 onClick={handleUpdateRole}
+                className={`mt-4 px-4 py-2 text-white ${
+                  uLoading ? "bg-gray-500" : "bg-blue-500"
+                } rounded`}
+                disabled={uLoading}
               >
                 {uLoading ? "Updating..." : "Update Role"}
               </button>
