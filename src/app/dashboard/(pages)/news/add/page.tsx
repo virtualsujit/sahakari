@@ -1,5 +1,6 @@
 "use client";
 
+import DashboardLoader from "@/components/dashboard/dashboard-loader";
 import { supabase } from "@/lib/supabase/client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -28,7 +29,7 @@ const NewsPost: React.FC = () => {
     date: "",
     thumbnail: null,
   });
-  
+
   const [loading, setLoading] = useState(false);
   const [newsArticles, setNewsArticles] = useState<NewsArticle[]>([]);
   const [fetchLoading, setFetchLoading] = useState<boolean>(false);
@@ -202,10 +203,7 @@ const NewsPost: React.FC = () => {
           </h1>
 
           {fetchLoading ? (
-            <div className="flex justify-center items-center">
-              <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600"></div>
-              <span className="ml-2 text-gray-700">Loading news...</span>
-            </div>
+            <DashboardLoader />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {newsArticles.map((article) => (

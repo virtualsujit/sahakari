@@ -1,9 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
+import DashboardLoader from "@/components/dashboard/dashboard-loader";
 import DashboardNav from "@/components/dashboard/dashboard-nav";
 import DashboardSidebar from "@/components/dashboard/dashboard-sidebar";
+import { supabase } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function RootLayout({
   children,
@@ -58,11 +59,11 @@ export default function RootLayout({
   }, [router]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <DashboardLoader />;
   }
 
   if (!hasAccess) {
-    return null; // or show an alternative loading state
+    router.push("/dashboard/sign-in");
   }
 
   return (

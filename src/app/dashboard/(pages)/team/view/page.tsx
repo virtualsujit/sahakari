@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { supabase } from "@/lib/supabase/client";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { handleDelete } from "@/utils/delete-data";
+import DashboardLoader from "@/components/dashboard/dashboard-loader";
 
 interface TeamMember {
   id: string;
@@ -83,9 +84,7 @@ const TeamList = () => {
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <p className="text-gray-500">Loading team members...</p>
-          </div>
+          <DashboardLoader />
         ) : teamMembers.length === 0 ? (
           <div className="flex justify-center items-center h-64">
             <p className="text-gray-500">No team members found.</p>

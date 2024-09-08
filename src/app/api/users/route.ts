@@ -89,7 +89,10 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(updatedUser, { status: 200 });
   } catch (error: any) {
-    console.error("Error updating user role:", error.message || error);
+    if (error.code === "P2025") {
+      return NextResponse.json({ error: "User not found." }, { status: 404 });
+    }
+    console.error("Error updating user role:", error);
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

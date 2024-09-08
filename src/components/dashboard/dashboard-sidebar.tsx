@@ -1,14 +1,24 @@
 import { Newspaper } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { fetchUser } from "@/utils/fetch-user";
 
 const DashboardSidebar = () => {
+  const [user, setUser] = useState({
+    id: "",
+    email: "",
+    role: "",
+    url: "",
+    name: "",
+  });
+  const [loading, setLoading] = useState(true);
+
   const sidebarData = [
     {
       name: "Team Members",
@@ -48,19 +58,27 @@ const DashboardSidebar = () => {
         },
       ],
     },
-
     {
       name: "Files",
       icon: <Newspaper size={18} />,
       link: "/dashboard/files",
     },
+  ];
 
-    {
+  if (user.role === "super admin") {
+    sidebarData.push({
       name: "Manage Accounts",
       icon: <Newspaper size={18} />,
       link: "/dashboard/manage-accounts",
-    },
-  ];
+    });
+  }
+
+  useEffect(() => {
+    fetchUser({
+      setLoading,
+      setUser,
+    });
+  }, []);
 
   return (
     <aside
